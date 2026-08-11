@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://web.34567.asia/sitemap.xml

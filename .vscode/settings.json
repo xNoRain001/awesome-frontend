@@ -1,0 +1,34 @@
+{
+  // .css 文件提供 tailwind 提示
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  // 组件 class 和 ui 属性开启 tailwind 提示
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 保存自动格式化
+  "editor.formatOnSave": true,
+  // 保存自动修复 eslint 问题
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  // 换行符使用 lf，而不是 crlf
+  "files.eol": "\n"
+}

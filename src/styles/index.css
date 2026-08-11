@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* 移除默认样式，否则 iOS 中不会显示 ring */
+input, textarea {
+  appearance: none;
+}
