@@ -64,6 +64,8 @@
 import { onMounted } from 'vue'
 
 class DeleteButton {
+  el: HTMLButtonElement
+
   isRunning = false
 
   constructor(el) {
@@ -82,7 +84,7 @@ class DeleteButton {
   }
   displayState() {
     this.el.disabled = this.isRunning
-    this.el.setAttribute('data-running', this.isRunning)
+    this.el.setAttribute('data-running', String(this.isRunning))
   }
   reset() {
     this.isRunning = false

@@ -76,7 +76,7 @@ import { ref } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useMovieStore } from '@/store'
+import { useListStore } from '@/store'
 
 const extensions = [
   EditorView.theme({
@@ -89,8 +89,8 @@ const extensions = [
 ]
 const route = useRoute()
 const router = useRouter()
-const { movieMap } = useMovieStore()
-const detail = movieMap[route.path.split('/').pop() as string]
+const { listMap } = useListStore()
+const detail = listMap[route.path.split('/').pop() as string]
 const rawItems = [
   {
     label: '预览',

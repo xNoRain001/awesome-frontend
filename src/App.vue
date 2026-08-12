@@ -13,7 +13,7 @@
         >
           <template #header>
             <svg
-              @click="() => router.replace('/')"
+              @click="router.replace('/')"
               class="size-8 cursor-pointer"
               style="filter: drop-shadow(rgba(0, 122, 204, 0.3) 0px 8px 24px)"
               xmlns="http://www.w3.org/2000/svg"

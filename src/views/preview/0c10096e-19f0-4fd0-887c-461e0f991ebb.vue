@@ -27,7 +27,7 @@ onMounted(() => {
 
   // js1024 shim
   const a = canvasRef.value!
-  const c = a.getContext('2d')
+  const c = a.getContext('2d') as CanvasRenderingContext2D
   // a.width = innerWidth
   // a.height = innerHeight
   const { width, height } = (
@@ -194,7 +194,8 @@ onMounted(() => {
   contextMid2 = canvasMid2.getContext('2d')
 
   // init
-  drawBackground((frame = brightness = 0))
+  frame = brightness = 0
+  drawBackground()
 
   ///////////////////////////////////////////////////////////////////////////////
 

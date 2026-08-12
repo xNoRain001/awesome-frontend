@@ -158,13 +158,13 @@
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  const board = document.querySelector('.board')
+  const board = document.querySelector('.board') as HTMLElement
   const cards = board.querySelectorAll('.card')
-  const triesValue = document.querySelector('.tries-value')
-  const best = document.querySelector('.interface-data-best')
-  const bestValue = best.querySelector('.best-value')
-  const marquee = document.querySelector('.marquee')
-  const marqueeText = document.querySelector('.marquee-text')
+  const triesValue = document.querySelector('.tries-value') as HTMLElement
+  const best = document.querySelector('.interface-data-best') as HTMLElement
+  const bestValue = best.querySelector('.best-value') as HTMLElement
+  const marquee = document.querySelector('.marquee') as HTMLElement
+  const marqueeText = document.querySelector('.marquee-text') as HTMLElement
   const faces = ['🙂', '😄', '😜', '😮', '😉', '😌']
   const cls = {
     completed: 'is-complete',
@@ -332,7 +332,7 @@ onMounted(() => {
     marquee.style.setProperty('display', 'none')
   })
 
-  document.querySelector('#reset-game').addEventListener('click', () => {
+  document.querySelector('#reset-game')!.addEventListener('click', () => {
     resetGame()
     setupGame()
   })

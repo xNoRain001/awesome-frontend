@@ -19,5 +19,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const onClick = (): any => router.push('/')
+const onClick = () => {
+  router.replace('/')
+}
 </script>

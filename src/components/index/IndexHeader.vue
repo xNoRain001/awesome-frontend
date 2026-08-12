@@ -35,12 +35,12 @@ import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useMovieStore } from '@/store'
+import { useListStore } from '@/store'
 
 const route = useRoute()
-const moiveStore = useMovieStore()
+const moiveStore = useListStore()
 const { keyword } = storeToRefs(moiveStore)
-const { movieMap } = moiveStore
+const { listMap } = moiveStore
 
 const items = computed(() => {
   const { id } = route.query
@@ -51,7 +51,7 @@ const items = computed(() => {
           to: '/'
         },
         {
-          label: movieMap[id as string].title
+          label: listMap[id as string].title
         }
       ]
     : [

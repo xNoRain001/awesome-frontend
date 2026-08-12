@@ -1,6 +1,6 @@
 <template>
-  <div class="container flex size-full items-end justify-center">
-    <div class="flex w-1/3 gap-4">
+  <div class="container flex h-full items-end justify-center">
+    <div class="flex w-1/2 gap-4">
       <figure>
         <img
           src="https://assets.codepen.io/1480814/necro.png"
@@ -80,7 +80,8 @@ figcaption {
 }
 figure:hover img {
   width: 130%;
-  height: 255%;
+  /* height: 255%; */
+  height: 200%;
   filter: contrast(1);
 }
 figure:hover::before {

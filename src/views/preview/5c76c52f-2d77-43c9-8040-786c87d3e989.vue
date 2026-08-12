@@ -88,12 +88,14 @@ const distanceFromLast = (x, y) => {
 const handleOnMove = e => {
   if (distanceFromLast(e.clientX, e.clientY) > window.innerWidth / 20) {
     const images = document.getElementsByClassName('image')
-    const lead = images[globalIndex % images.length],
-      tail = images[(globalIndex - 5) % images.length]
+    const lead = images[globalIndex % images.length]
+    const tail = images[(globalIndex - 5) % images.length] as HTMLElement
 
     activate(lead, e.clientX, e.clientY)
 
-    if (tail) tail.dataset.status = 'inactive'
+    if (tail) {
+      tail.dataset.status = 'inactive'
+    }
 
     globalIndex++
   }

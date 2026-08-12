@@ -46,8 +46,12 @@ const onLove = () => {
   const groups = document.getElementsByClassName('card-group')
   const nextIndex = activeIndex + 1 <= groups.length - 1 ? activeIndex + 1 : 0
 
-  const currentGroup = document.querySelector(`[data-index="${activeIndex}"]`)!
-  const nextGroup = document.querySelector(`[data-index="${nextIndex}"]`)!
+  const currentGroup = document.querySelector(
+    `[data-index="${activeIndex}"]`
+  ) as HTMLElement
+  const nextGroup = document.querySelector(
+    `[data-index="${nextIndex}"]`
+  ) as HTMLElement
 
   currentGroup.dataset.status = 'after'
 
@@ -63,8 +67,12 @@ const onHate = () => {
   const groups = document.getElementsByClassName('card-group')
   const nextIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : groups.length - 1
 
-  const currentGroup = document.querySelector(`[data-index="${activeIndex}"]`)!
-  const nextGroup = document.querySelector(`[data-index="${nextIndex}"]`)!
+  const currentGroup = document.querySelector(
+    `[data-index="${activeIndex}"]`
+  ) as HTMLElement
+  const nextGroup = document.querySelector(
+    `[data-index="${nextIndex}"]`
+  ) as HTMLElement
 
   currentGroup.dataset.status = 'before'
 

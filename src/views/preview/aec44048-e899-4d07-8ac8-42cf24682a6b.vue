@@ -7,7 +7,7 @@
     <h1
       ref="textRef"
       contenteditable
-      class="text-[100px] text-[rgba(50,50,50,1)]"
+      class="text-[100px] font-bold text-[rgba(50,50,50,1)]"
       :style="{
         textShadow
       }"
@@ -41,6 +41,4 @@ const createShadow = e => {
 }
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-</style>
+<style scoped></style>

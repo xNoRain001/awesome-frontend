@@ -31,8 +31,6 @@
 <script lang="ts" setup></script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
-
 :where(.canvas) {
   --darkblue: #78c2e2; /* body stripe 1 */
   --mediumblue: #86c8e5; /* body stripe 2 */

@@ -12,7 +12,7 @@ const html = readFileSync(filePath, 'utf-8')
 const s = '<div id="app" class="isolate"></div>'
 const index = html.indexOf(s) + s.length
 const ads = [
-  '<script src="https://pl30089665.effectivecpmnetwork.com/63/66/9f/63669f53e7f3d2ff7eed63576f076946.js"></script>'
+  '<script src="https://pl30794219.effectivecpmnetwork.com/a2/16/07/a21607012a47ce673a770b524b473971.js"></script>'
 ]
 writeFileSync(
   filePath,

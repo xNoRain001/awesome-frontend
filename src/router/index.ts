@@ -155,6 +155,71 @@ const router = createRouter({
           path: 'dd0a521f-06e5-425e-85f4-bb93d019d6fd',
           component: () =>
             import('@/views/preview/dd0a521f-06e5-425e-85f4-bb93d019d6fd.vue')
+        },
+        {
+          path: '0cee9966-b246-4d19-953f-bbc056854eff',
+          component: () =>
+            import('@/views/preview/0cee9966-b246-4d19-953f-bbc056854eff.vue')
+        },
+        {
+          path: '20d26d5d-0c85-4d8f-b2e2-172068329b94',
+          component: () =>
+            import('@/views/preview/20d26d5d-0c85-4d8f-b2e2-172068329b94.vue')
+        },
+        {
+          path: 'e8c403f4-1db6-4089-8faa-786acb793e21',
+          component: () =>
+            import('@/views/preview/e8c403f4-1db6-4089-8faa-786acb793e21.vue')
+        },
+        {
+          path: 'eedfd310-b0b3-4074-b57a-ce05b59b8c4f',
+          component: () =>
+            import('@/views/preview/eedfd310-b0b3-4074-b57a-ce05b59b8c4f.vue')
+        },
+        {
+          path: 'f91c1cdb-e86d-429b-a81d-657c27e755a3',
+          component: () =>
+            import('@/views/preview/f91c1cdb-e86d-429b-a81d-657c27e755a3.vue')
+        },
+        {
+          path: '81cd299c-11ad-4f1e-8d57-9da875d1203b',
+          component: () =>
+            import('@/views/preview/81cd299c-11ad-4f1e-8d57-9da875d1203b.vue')
+        },
+        {
+          path: '2c24290e-0c19-4021-b497-99563d6c97d5',
+          component: () =>
+            import('@/views/preview/2c24290e-0c19-4021-b497-99563d6c97d5.vue')
+        },
+        {
+          path: '1b13f638-a630-468c-b2de-8ac10d2f9eae',
+          component: () =>
+            import('@/views/preview/1b13f638-a630-468c-b2de-8ac10d2f9eae.vue')
+        },
+        {
+          path: '07155c45-c3e3-4543-b843-61e976b876e0',
+          component: () =>
+            import('@/views/preview/07155c45-c3e3-4543-b843-61e976b876e0.vue')
+        },
+        {
+          path: 'e01c5263-3c34-4a08-8b82-44d947fd1d2e',
+          component: () =>
+            import('@/views/preview/e01c5263-3c34-4a08-8b82-44d947fd1d2e.vue')
+        },
+        {
+          path: '136c6dbb-ab49-4537-8c9c-5a0cff3eab71',
+          component: () =>
+            import('@/views/preview/136c6dbb-ab49-4537-8c9c-5a0cff3eab71.vue')
+        },
+        {
+          path: '61be3bed-b37d-4779-b32c-3aaa55f0629f',
+          component: () =>
+            import('@/views/preview/61be3bed-b37d-4779-b32c-3aaa55f0629f.vue')
+        },
+        {
+          path: '84d5fa0a-07b2-4688-8b0d-f26e790ce9b7',
+          component: () =>
+            import('@/views/preview/84d5fa0a-07b2-4688-8b0d-f26e790ce9b7.vue')
         }
       ]
     },

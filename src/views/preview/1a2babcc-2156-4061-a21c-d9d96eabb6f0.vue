@@ -17,11 +17,22 @@
 import { onMounted } from 'vue'
 
 class TCIClean {
+  container: HTMLElement
+  clean: HTMLElement
+  dirty: HTMLElement
+  friction: number
+  x: number
+  inOver: boolean
+  mouse: {
+    x: number
+    y: number
+  }
+
   constructor(_container) {
     if (!_container) throw 'Container es requerido'
     this.container = document.querySelector(_container)
-    this.clean = this.container.querySelector('.sneaker-clean')
-    this.dirty = this.container.querySelector('.sneaker-dirty')
+    this.clean = this.container.querySelector('.sneaker-clean') as HTMLElement
+    this.dirty = this.container.querySelector('.sneaker-dirty') as HTMLElement
     this.friction = 0.15
     this.x = 50
     this.inOver = false
@@ -72,7 +83,7 @@ class TCIClean {
   get percentX() {
     if (!this.inOver) return 50
     const _x = this.mouse.x - this.offset.x
-    return parseInt((_x / this.rect.width) * 100)
+    return parseInt(String((_x / this.rect.width) * 100))
   }
 
   get rect() {
@@ -98,7 +109,7 @@ class TCIClean {
 }
 
 onMounted(() => {
-  const sneaker = new TCIClean('.sneaker-container')
+  new TCIClean('.sneaker-container')
 })
 </script>
 

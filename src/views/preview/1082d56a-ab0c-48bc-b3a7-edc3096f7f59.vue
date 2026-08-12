@@ -153,32 +153,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-html,
-body {
-  background-color: #121212;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  color: #aaa;
-  font-family: 'Quicksand', serif;
-}
-@media (max-width: 800px) {
-  html,
-  body {
-    font-size: 13px;
-  }
-}
-@media (max-width: 650px) {
-  html,
-  body {
-    font-size: 10px;
-  }
-}
-
 .wrapper {
   display: grid;
   justify-content: center;
