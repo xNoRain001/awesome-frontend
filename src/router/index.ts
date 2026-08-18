@@ -220,6 +220,111 @@ const router = createRouter({
           path: '84d5fa0a-07b2-4688-8b0d-f26e790ce9b7',
           component: () =>
             import('@/views/preview/84d5fa0a-07b2-4688-8b0d-f26e790ce9b7.vue')
+        },
+        {
+          path: '32bb4c8c-1526-4254-9455-260f51b67722',
+          component: () =>
+            import('@/views/preview/32bb4c8c-1526-4254-9455-260f51b67722.vue')
+        },
+        {
+          path: '8ea50b58-af86-423a-a8e5-a7fa293e4494',
+          component: () =>
+            import('@/views/preview/8ea50b58-af86-423a-a8e5-a7fa293e4494.vue')
+        },
+        {
+          path: 'ddd0e9b6-490c-47be-9bdb-df23b9ffef7d',
+          component: () =>
+            import('@/views/preview/ddd0e9b6-490c-47be-9bdb-df23b9ffef7d.vue')
+        },
+        {
+          path: '18691489-2a41-4aaa-9f33-37cd1cc4774e',
+          component: () =>
+            import('@/views/preview/18691489-2a41-4aaa-9f33-37cd1cc4774e.vue')
+        },
+        {
+          path: '58dff3f6-157a-4d54-953d-fd11b953daf4',
+          component: () =>
+            import('@/views/preview/58dff3f6-157a-4d54-953d-fd11b953daf4.vue')
+        },
+        {
+          path: '54fe1cf0-a151-4099-a8b6-15236b472c2b',
+          component: () =>
+            import('@/views/preview/54fe1cf0-a151-4099-a8b6-15236b472c2b.vue')
+        },
+        {
+          path: '56a282f4-863a-4fd4-b527-f037c94ad963',
+          component: () =>
+            import('@/views/preview/56a282f4-863a-4fd4-b527-f037c94ad963.vue')
+        },
+        {
+          path: '6dc90f84-a96d-4e9e-b78e-2a8c595f1a64',
+          component: () =>
+            import('@/views/preview/6dc90f84-a96d-4e9e-b78e-2a8c595f1a64.vue')
+        },
+        {
+          path: 'adb9f412-a627-4b07-9392-c13f270f79a7',
+          component: () =>
+            import('@/views/preview/adb9f412-a627-4b07-9392-c13f270f79a7.vue')
+        },
+        {
+          path: '86aa25a2-8dc3-4f89-b0d4-dc01c621490a',
+          component: () =>
+            import('@/views/preview/86aa25a2-8dc3-4f89-b0d4-dc01c621490a.vue')
+        },
+        {
+          path: '2e4c517c-7b19-48e1-bb88-f6b219d903a9',
+          component: () =>
+            import('@/views/preview/2e4c517c-7b19-48e1-bb88-f6b219d903a9.vue')
+        },
+        {
+          path: 'a94f3e3a-3c49-4f3a-9ae3-67ac2fadbde8',
+          component: () =>
+            import('@/views/preview/a94f3e3a-3c49-4f3a-9ae3-67ac2fadbde8.vue')
+        },
+        {
+          path: '925c0b5f-b1a9-430d-af9a-6892f6e09f35',
+          component: () =>
+            import('@/views/preview/925c0b5f-b1a9-430d-af9a-6892f6e09f35.vue')
+        },
+        {
+          path: 'b6b315bd-6162-464d-8411-12e1fd963fcd',
+          component: () =>
+            import('@/views/preview/b6b315bd-6162-464d-8411-12e1fd963fcd.vue')
+        },
+        {
+          path: '9b38c765-aaa3-4e30-88fb-ceb60df2fa0b',
+          component: () =>
+            import('@/views/preview/9b38c765-aaa3-4e30-88fb-ceb60df2fa0b.vue')
+        },
+        {
+          path: '3d904b7c-6f0d-456a-98c9-9b5ae34c3689',
+          component: () =>
+            import('@/views/preview/3d904b7c-6f0d-456a-98c9-9b5ae34c3689.vue')
+        },
+        {
+          path: 'b1fcb353-19b5-4c4b-a278-4d72b5da6cac',
+          component: () =>
+            import('@/views/preview/b1fcb353-19b5-4c4b-a278-4d72b5da6cac.vue')
+        },
+        {
+          path: '5cd32437-d4f6-464f-8b25-0372b1606ebf',
+          component: () =>
+            import('@/views/preview/5cd32437-d4f6-464f-8b25-0372b1606ebf.vue')
+        },
+        {
+          path: '9ed5080a-7381-4ac8-a82b-7945e486706f',
+          component: () =>
+            import('@/views/preview/9ed5080a-7381-4ac8-a82b-7945e486706f.vue')
+        },
+        {
+          path: 'e2c1d4b3-aca6-40c0-862c-2eab1e2b0544',
+          component: () =>
+            import('@/views/preview/e2c1d4b3-aca6-40c0-862c-2eab1e2b0544.vue')
+        },
+        {
+          path: '31d61342-5f24-47e8-bebe-17818bb55ea3',
+          component: () =>
+            import('@/views/preview/31d61342-5f24-47e8-bebe-17818bb55ea3.vue')
         }
       ]
     },

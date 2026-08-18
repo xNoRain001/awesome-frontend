@@ -22,7 +22,7 @@
   gap: 8px;
 }
 img {
-  --s: 12px; /* control the size of the wave */
+  --s: 16px; /* control the size of the wave */
 
   width: calc(3 * 4 * var(--s));
   aspect-ratio: 1;

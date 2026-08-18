@@ -1,31 +1,50 @@
 <template>
-  <div class="tear-strip">
-    <div class="tear-strip__content" aria-hidden="true" aria-live="off">
-      <p>inner radius = outer radius - padding</p>
+  <div id="gallery">
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHJhbmRvbSUyMG9iamVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=70"
+      />
     </div>
-    <span class="tear-strip__shadow"></span>
-    <div class="tear-strip__strip">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-        />
-      </svg>
-      <div class="tear-strip__back">
-        <div class="tear-strip__back-shadow"></div>
-        <div class="tear-strip__backing"></div>
-      </div>
-      <span class="strip-text"><span>Tear</span><span>&nbsp;open</span></span>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1515266591878-f93e32bc5937?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsdWV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=70"
+      />
     </div>
-    <div class="tear-strip__handle handle"></div>
-    <input type="range" min="0" max="100" step="1" value="0" />
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1587590227264-0ac64ce63ce8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tJTIwb2JqZWN0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1520121401995-928cd50d4e27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Z3JlZW58ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cHVycGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1557800636-894a64c1696f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8b3JhbmdlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1520338258525-606b90f95b04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGRhcmslMjBibHVlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1521127474489-d524412fd439?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fHJhbmRvbSUyMG9iamVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cmFuZG9tJTIwb2JqZWN0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=70"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,389 +52,137 @@
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  if (!CSS.supports('animation-timeline: scroll()')) {
-    const input = document.querySelector('input') as HTMLInputElement
-    const update = () =>
-      document.documentElement.style.setProperty('--value', input.value)
-    input.addEventListener('input', update)
+  const gallery = document.getElementById('gallery')!
+
+  window.onmousemove = e => {
+    const mouseX = e.clientX,
+      mouseY = e.clientY
+
+    const xDecimal = mouseX / window.innerWidth,
+      yDecimal = mouseY / window.innerHeight
+
+    const maxX = gallery.offsetWidth - window.innerWidth,
+      maxY = gallery.offsetHeight - window.innerHeight
+
+    const panX = maxX * xDecimal * -1,
+      panY = maxY * yDecimal * -1
+
+    gallery.animate(
+      {
+        transform: `translate(${panX}px, ${panY}px)`
+      },
+      {
+        duration: 4000,
+        fill: 'forwards',
+        easing: 'ease'
+      }
+    )
   }
 })
 </script>
 
 <style scoped>
-@layer foundation {
-  *,
-  *:after,
-  *:before {
-    box-sizing: border-box;
-  }
-
-  :root {
-    --bg: hsl(0 0% 98%);
-  }
-
-  body {
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
-    font-family:
-      'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica,
-      Arial, sans-serif, system-ui;
-    overflow: hidden;
-    background: var(--bg);
-  }
-
-  section {
-    height: 100vh;
-    display: grid;
-    place-items: center;
-    position: fixed;
-    inset: 0;
-  }
+#gallery {
+  height: 140vmax;
+  width: 140vmax;
+  position: absolute;
 }
 
-/* This one's for resetting the input styles and getting them out the way */
-@layer reset {
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  [type='range']:hover {
-    cursor: -webkit-grab;
-  }
-  [type='range']:active {
-    cursor: -webkit-grabbing;
-  }
-  [type='range']:focus-visible {
-    outline-offset: 0.25rem;
-    outline-color: transparent;
-  }
-
-  [type='range'] {
-    width: 200%;
-    opacity: 1;
-    height: 100%;
-    overflow: hidden;
-    touch-action: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    opacity: 0;
-    position: absolute;
-    left: 0;
-    z-index: 10;
-  }
-
-  [type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 100%;
-    width: 100cqh;
-    background: hsl(210 80% 25% / 0.75);
-    margin-top: 0;
-  }
-
-  [type='range']::-moz-range-thumb {
-    height: 100cqh;
-    background: hsl(210 80% 25% / 0.5);
-    width: 100cqh;
-    margin-top: 30px;
-  }
-  [type='range']::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 100cqh;
-    background: hsl(210 80% 50% / 0.2);
-  }
-  [type='range']::-moz-range-track {
-    height: 100cqh;
-    background: hsl(210 80% 50% / 0.2);
-  }
+.tile {
+  border-radius: 1vmax;
+  position: absolute;
+  transition: transform 800ms ease;
 }
 
-@layer tear-strip {
-  /*.tear-strip:focus-within {
-		outline: 10px solid hsl(0 0% 0% / 0.15);
-	}*/
-
-  .tear-strip :not(input) {
-    pointer-events: none;
-  }
-
-  .strip-adder {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    width: 48px;
-    aspect-ratio: 1;
-    z-index: 22;
-    border-radius: 50%;
-    border: 0;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    background: hsl(0 0% 90% / var(--alpha, 0));
-    transition: background 0.2s;
-  }
-
-  .strip-adder svg {
-    width: 65%;
-    color: hsl(0 0% 10% / var(--alpha, 0.5));
-    transition: color 0.2s;
-  }
-
-  .strip-adder:is(:hover, :focus-visible) {
-    --alpha: 1;
-  }
-
-  .reference {
-    opacity: 1;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    translate: -50% -150%;
-  }
-
-  .tear-strip {
-    --tab-darkness: calc(20 + (60 * (var(--value, 0) / 100)));
-    --shadow-multiplier: calc(var(--value, 0) / 100);
-    --bg-size: 20%;
-    --bg-size: calc(var(--value, 0) * 1%);
-    --shadow-width: calc((var(--value, 0) - 50 / 100) * 200%);
-    --shadow-reveal: calc(var(--value, 0) / 100);
-    --shadow-spread: calc(var(--value, 0) / 100);
-    --tab-darkness: 80;
-
-    font-size: 1.3rem;
-    font-weight: bold;
-    width: clamp(300px, 470px, 28vw);
-    width: 340px;
-    height: 78px;
-    display: grid;
-    place-items: center;
-    /*	translate: 0 -80%;*/
-    position: relative;
-    border: 4px dashed hsl(0 0% 85%);
-    border-radius: 100px;
-    background: linear-gradient(hsl(0 0% 91%), hsl(0 0% 91%)) padding-box;
-    color: hsl(0, 0%, 70%);
-    container-type: size;
-  }
-
-  @media (max-width: 768px) {
-    .tear-strip {
-      width: 180px;
-    }
-    .strip-text {
-      translate: 50% 0;
-      z-index: -1;
-    }
-    .strip-text span:nth-of-type(2) {
-      display: none;
-    }
-    .tear-strip__content[aria-hidden='true'] {
-      padding: 0.25rem;
-    }
-  }
-
-  .tear-strip:is(:hover, :focus-visible) {
-    --intent: 1;
-  }
-  .tear-strip:active {
-    --active: 1;
-  }
-
-  .tear-strip__content {
-    position: absolute;
-    font-size: 1rem;
-    text-align: right;
-  }
-
-  .tear-strip__strip {
-    position: absolute;
-    inset: 0;
-    background: var(--bg);
-    display: flex;
-    border-radius: 100px;
-    align-items: center;
-    justify-content: center;
-    clip-path: inset(-100% 0 -100% 1px);
-    color: hsl(0, 0%, 71%);
-    font-weight: 500;
-    /*	THIS FOR THE STRIP */
-    /*	clip-path: inset(-100% -1000% -100% 319.098px);*/
-    clip-path: inset(-100% -1000% -100% calc(var(--value, 0) * 1%));
-  }
-
-  .tear-strip__shadow {
-    position: absolute;
-    height: 100%;
-    width: 20px;
-    transform-origin: 100% 50%;
-    left: 0;
-    opacity: calc(1 - (((var(--value, 0) - 90) / 10) * 1));
-    translate: -75% 0;
-    transform: translateX(calc(((var(--value, 0) / 100) * (100cqi - 20%))));
-  }
-
-  .tear-strip__shadow::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, hsl(0 0% 10% / 0.5));
-    filter: blur(8px);
-    /* Way to step the opacity based on one value	*/
-    opacity: calc(
-      /*	When you're 10% in	*/ (1 * (clamp(0, var(--value, 0), 10) / 10))
-    );
-  }
-
-  .tear-strip__back {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    border-radius: 100px;
-    right: 100%;
-
-    translate: none;
-    rotate: none;
-    scale: none;
-    transform-origin: 0% 50%;
-    /* THIS FOR THE BACK */
-    transform: translate(calc(var(--value, 0) * 2%), 0px);
-  }
-
-  .tear-strip__backing {
-    background: linear-gradient(
-      90deg,
-      hsl(0 0% calc(var(--tab-darkness, 40) * 1%) / var(--bg-alpha, 1)),
-      hsl(0 0% 100% / var(--bg-alpha, 1)),
-      hsl(0 0% 80% / var(--bg-alpha, 1))
-    );
-    background-position: 100% 50%;
-    background-repeat: no-repeat;
-    background-color: hsl(0 0% 93%);
-    background-size: var(--bg-size) 100%;
-    position: absolute;
-    inset: 0;
-    border-radius: 1000px;
-  }
-
-  .tear-strip__backing::before {
-    content: '';
-    position: absolute;
-    inset: 0 -8px 0 0;
-    filter: blur(4px);
-    background: radial-gradient(
-      100% 100%,
-      hsl(0 0% 10% / 0.5),
-      transparent 80%
-    );
-    border-radius: 1000px;
-    z-index: -1;
-    opacity: var(--shadow-reveal, 0);
-  }
-
-  .tear-strip__back-shadow {
-    position: absolute;
-    border-radius: 1000px;
-    background: transparent;
-    right: 0;
-    top: 50%;
-    height: 100%;
-    translate: 0 -50%;
-    width: calc((var(--shadow-width) * var(--shadow-multiplier, 0.8)) * 1px);
-    width: calc(var(--value, 0) * 0.8%);
-    z-index: -1;
-    min-width: 100px;
-    box-shadow: 0 0 calc(var(--shadow-spread, 0) * 100cqh)
-      hsl(
-        10 0% calc((30 + ((var(--value, 0) / 100) * 40)) * 1%) /
-          calc(0.25 + (var(--value, 0) / 100))
-      );
-  }
-
-  .tear-strip__strip svg {
-    background: hsl(78, 75%, 57%);
-    border-radius: 50%;
-    width: 48px;
-    padding: 10px;
-    position: absolute;
-    left: 11px;
-    color: white;
-    stroke-width: 2.5px;
-    transform-origin: 100% 50%;
-
-    translate: none;
-    rotate: none;
-    scale: none;
-    /* THIS SVG MOVES BETWEEN A RANGE */
-    transform: translate(calc((var(--value, 0) / 100) * 150%), 0%)
-      scale(calc(1 - ((var(--value, 0) / 100) * 1)), 1);
-  }
-
-  .tear-strip__handle {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    aspect-ratio: 1;
-    background: hsl(210 80% 50% / 0.1);
-    opacity: calc((var(--intent, 0) * 1) - var(--active, 0));
-    border-radius: 50%;
-    transform-origin: 100% 50%;
-    translate: calc((var(--value, 0) / 100) * (200cqi + -100%));
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
+.tile:hover {
+  transform: scale(1.1);
 }
 
-@layer scrolls {
-  @supports (animation-timeline: scroll()) {
-    :root {
-      timeline-scope: --thumb;
-    }
+.tile:hover > img {
+  opacity: 1;
+  transform: scale(1.01);
+}
 
-    @property --value {
-      initial-value: 0;
-      syntax: '<integer>';
-      inherits: true;
-    }
+.tile > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  opacity: 0;
+  transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+}
 
-    @keyframes sync {
-      to {
-        --value: 100;
-      }
-    }
+.tile:nth-child(1) {
+  background-color: rgb(255, 238, 88);
+  height: 14%;
+  width: 20%;
+  left: 5%;
+  top: 5%;
+}
 
-    .tear-strip {
-      animation: sync both linear reverse;
-      animation-timeline: --thumb;
-      animation-range: contain;
-    }
+.tile:nth-child(2) {
+  background-color: rgb(66, 165, 245);
+  height: 24%;
+  width: 14%;
+  left: 42%;
+  top: 12%;
+}
 
-    [type='range']::-webkit-slider-thumb {
-      view-timeline-name: --thumb;
-      view-timeline-axis: inline;
-    }
-  }
+.tile:nth-child(3) {
+  background-color: rgb(239, 83, 80);
+  height: 18%;
+  width: 16%;
+  left: 12%;
+  top: 34%;
+}
+
+.tile:nth-child(4) {
+  background-color: rgb(102, 187, 106);
+  height: 14%;
+  width: 12%;
+  left: 45%;
+  top: 48%;
+}
+
+.tile:nth-child(5) {
+  background-color: rgb(171, 71, 188);
+  height: 16%;
+  width: 32%;
+  left: 8%;
+  top: 70%;
+}
+
+.tile:nth-child(6) {
+  background-color: rgb(255, 167, 38);
+  height: 24%;
+  width: 24%;
+  left: 68%;
+  top: 8%;
+}
+
+.tile:nth-child(7) {
+  background-color: rgb(63, 81, 181);
+  height: 16%;
+  width: 20%;
+  left: 50%;
+  top: 74%;
+}
+
+.tile:nth-child(8) {
+  background-color: rgb(141, 110, 99);
+  height: 24%;
+  width: 18%;
+  left: 72%;
+  top: 42%;
+}
+
+.tile:nth-child(9) {
+  background-color: rgb(250, 250, 250);
+  height: 10%;
+  width: 8%;
+  left: 84%;
+  top: 84%;
 }
 </style>

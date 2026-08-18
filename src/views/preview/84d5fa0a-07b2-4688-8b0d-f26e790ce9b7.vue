@@ -1,291 +1,283 @@
 <template>
-  <section class="wrapper">
-    <div data-title="A misty Morning">
-      <img src="https://picsum.photos/id/634/1200/1200" />
+  <div class="slider-wrapper">
+    <input class="slider-input" type="range" value="720" max="1440" step="1" />
+    <div class="slider-thumb">
+      <div class="slider-value-container">
+        <p class="slider-value">12:00 PM</p>
+      </div>
     </div>
-    <div data-title="Harvest">
-      <img src="https://picsum.photos/id/228/1200/1200" />
-    </div>
-    <div data-title="Waiting">
-      <img src="https://picsum.photos/id/661/1200/1200" />
-    </div>
-    <div data-title="Time for Everything">
-      <img src="https://picsum.photos/id/380/1200/1200" />
-    </div>
-    <div data-title="Cross over">
-      <img src="https://picsum.photos/id/392/1200/1200" />
-    </div>
-    <div data-title="In The City">
-      <img src="https://picsum.photos/id/238/1200/1200" />
-    </div>
-    <div id="img-7" data-title="A Boat Trip">
-      <img src="https://picsum.photos/id/469/1200/1200" />
-    </div>
-    <div data-title="Waiting">
-      <img src="https://picsum.photos/id/311/1200/1200" />
-    </div>
-    <div data-title="Stories to tell">
-      <img src="https://picsum.photos/id/515/1200/1200" />
-    </div>
-    <div data-title="A Perfect Day">
-      <img src="https://picsum.photos/id/521/1200/1200" />
-    </div>
-    <div data-title="Riding the Curve">
-      <img src="https://picsum.photos/id/549/1200/1200" />
-    </div>
-    <div data-title="Raindrops">
-      <img src="https://picsum.photos/id/178/1200/1200" />
-    </div>
-    <div data-title="Gone Sailing">
-      <img src="https://picsum.photos/id/637/1200/1200" />
-    </div>
-    <div data-title="The Watch Tower">
-      <img src="https://picsum.photos/id/641/1200/1200" />
-    </div>
-    <div data-title="Leaving">
-      <img src="https://picsum.photos/id/669/1200/1200" />
-    </div>
-    <div data-title="Above the Clouds">
-      <img src="https://picsum.photos/id/685/1200/1200" />
-    </div>
-    <div data-title="This is the title">
-      <img src="https://picsum.photos/id/505/1200/1200" />
-    </div>
-    <div data-title="This is the title">
-      <img src="https://picsum.photos/id/699/1200/1200" />
-    </div>
-    <div data-title="This is the title">
-      <img src="https://picsum.photos/id/513/1200/1200" />
-    </div>
-    <div data-title="Contemplation!">
-      <img src="https://picsum.photos/id/773/1200/1200" />
-    </div>
-  </section>
-
-  <div class="icon">
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="40"
-      height="40"
-      viewBox="0 0 24 40"
+      class="slider-svg"
+      viewBox="0 0 238 36"
       fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="mouse"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path
-        d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z"
+        class="slider-svg-path"
+        d="M2 34L7.21879 31.0968C78.5901 -8.60616 165.659 -7.50128 236 34V34"
+        stroke="url(#paint0_linear_339_100980)"
+        stroke-width=".25em"
+        stroke-linecap="round"
+        vector-effect="non-scaling-stroke"
+        filter="url(#filter0_i_339_100980)"
       />
-      <path d="M12 7l0 4" />
-      <path d="M8 26l4 4l4 -4">
-        <animateTransform
-          attributeType="XML"
-          attributeName="transform"
-          type="translate"
-          values="0 0; 0 4; 0 0"
-          dur="1s"
-          repeatCount="indefinite"
-        />
-      </path>
+      <defs>
+        <filter
+          id="filter0_i_339_100980"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="1" />
+          <feGaussianBlur stdDeviation="0.5" />
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="shape"
+            result="effect1_innerShadow_339_100980"
+          />
+        </filter>
+        <linearGradient
+          id="paint0_linear_339_100980"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#F3D970" />
+          <stop offset="0.2" stop-color="#FCBB5D" />
+          <stop offset="0.4" stop-color="#F6876D" />
+          <stop offset="0.6" stop-color="#934284" />
+          <stop offset="0.8" stop-color="#402862" />
+          <stop offset="1" stop-color="#011549" />
+        </linearGradient>
+      </defs>
     </svg>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  // following code needs some refactoring
+
+  const sliderWrapper = document.querySelector('.slider-wrapper')!
+  const sliderSvg = document.querySelector('.slider-svg') as SVGSVGElement
+  const sliderPath = document.querySelector(
+    '.slider-svg-path'
+  ) as SVGPathElement
+  const sliderPathLength = sliderPath.getTotalLength()
+  const sliderThumb = document.querySelector('.slider-thumb') as HTMLElement
+  const sliderInput = document.querySelector(
+    '.slider-input'
+  ) as HTMLInputElement
+  const sliderMinValue = +sliderInput.min || 0
+  const sliderMaxValue = +sliderInput.max || 100
+
+  const time = document.querySelector('.slider-value')!
+
+  const updateTime = timeInMinutes => {
+    let hours = Math.floor(timeInMinutes / 60)
+    const minutes = timeInMinutes % 60
+    const isMorning = hours < 12
+    const formattedHours = String(
+      isMorning ? hours || 12 : hours - 12 || 12
+    ).padStart(2, '0')
+    const formattedMinutes = String(minutes).padStart(2, '0')
+    time.textContent = `${formattedHours}:${formattedMinutes} ${isMorning || hours === 24 ? 'AM' : 'PM'}`
+  }
+
+  const setColor = progress => {
+    const colorStops = [
+      { r: 243, g: 217, b: 112 }, // #F3D970
+      { r: 252, g: 187, b: 93 }, // #FCBB5D
+      { r: 246, g: 135, b: 109 }, // #F6876D
+      { r: 147, g: 66, b: 132 }, // #934284
+      { r: 64, g: 40, b: 98 }, // #402862
+      { r: 1, g: 21, b: 73 } // #011549
+    ]
+    const numStops = colorStops.length
+
+    const index = (numStops - 1) * progress
+    const startIndex = Math.floor(index)
+    const endIndex = Math.ceil(index)
+
+    const startColor = colorStops[startIndex]
+    const endColor = colorStops[endIndex]
+
+    const percentage = index - startIndex
+
+    const [r, g, b] = [
+      Math.round(startColor.r + (endColor.r - startColor.r) * percentage),
+      Math.round(startColor.g + (endColor.g - startColor.g) * percentage),
+      Math.round(startColor.b + (endColor.b - startColor.b) * percentage)
+    ]
+
+    sliderThumb.style.setProperty('--color', `rgb(${r} ${g} ${b})`)
+  }
+
+  // updating position could be done with CSS Motion Path instead of absolute positioning but Safari <15.4 doesn’t seem to support it
+  const updatePosition = progress => {
+    const point = sliderPath.getPointAtLength(progress * sliderPathLength)
+    const svgRect = sliderSvg.getBoundingClientRect()
+    const scaleX = svgRect.width / sliderSvg.viewBox.baseVal.width
+    const scaleY = svgRect.height / sliderSvg.viewBox.baseVal.height
+    sliderThumb.style.left = `${(point.x * scaleX * 100) / svgRect.width}%`
+    sliderThumb.style.top = `${(point.y * scaleY * 100) / svgRect.height}%`
+    const value = Math.round(progress * (sliderMaxValue - sliderMinValue))
+    sliderInput.value = String(value)
+    updateTime(value)
+    setColor(progress)
+  }
+
+  sliderInput.addEventListener('input', () => {
+    const progress =
+      sliderInput.valueAsNumber / (sliderMaxValue - sliderMinValue)
+    updatePosition(progress)
+  })
+
+  const handlePointerMove = event => {
+    const sliderWidth = sliderPath.getBoundingClientRect().width
+    const pointerX = event.clientX - sliderPath.getBoundingClientRect().left
+    const progress = Math.min(Math.max(pointerX / sliderWidth, 0), 1)
+    updatePosition(progress)
+  }
+
+  const handlePointerDown = event => {
+    const sliderWidth = sliderPath.getBoundingClientRect().width
+    const pointerX = event.clientX - sliderPath.getBoundingClientRect().left
+    const progress = Math.min(Math.max(pointerX / sliderWidth, 0), 1)
+    const isThumb = event.target.classList.contains('slider-thumb')
+    if (!isThumb) updatePosition(progress)
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerup', () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+    })
+  }
+
+  sliderThumb.addEventListener('pointerdown', handlePointerDown)
+  sliderPath.addEventListener('pointerdown', handlePointerDown)
+
+  updatePosition(sliderInput.valueAsNumber / (sliderMaxValue - sliderMinValue))
+
+  sliderWrapper.addEventListener('selectstart', event => {
+    event.preventDefault()
+  })
+})
+</script>
 
 <style scoped>
-@property --rotate {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
+/* 编译后 CSS */
+.slider-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 12.5em;
+  max-width: 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transform: scale(1.5);
 }
 
-body {
-  height: 1200svh;
-  margin: 0;
-
-  animation: --page-rotate 1s linear;
-  animation-timeline: scroll(nearest block);
-
-  /** this allows us to rotate to exactly each card.
-    BUT, it either needs to be set via JS or hardcoded as we can't accesss the .wrapper sibling-count() value  from the body */
-  --cards: 20;
-  animation-timing-function: steps(var(--cards));
+.slider-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-@keyframes --page-rotate {
-  to {
-    --rotate: 1;
-  }
+.slider-thumb {
+  --color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  left: calc(
+    var(--slider-value) / 100 * (100% - var(--slider-height)) +
+      var(--slider-height) / 2
+  );
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+  background-image: linear-gradient(to bottom, #f0f0f2, #d9dade);
+  box-shadow: 0 0.0625em 0.0625em rgb(0 0 0 / 0.3);
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: none;
+  cursor: pointer;
 }
 
-.wrapper {
-  --card-border-radius: 14px;
-  --cards: sibling-count();
-  --card-width: max(150px, 20vw);
-
-  --card-height: calc(var(--card-width) * 6 / 4);
-  /* radius large enough so cards don't overlap */
-  --radius: calc(var(--card-width) * var(--cards) / (2 * 3.1416));
-
-  font-family: 'Just Me Again Down Here', handwriting;
-  position: fixed;
-  width: calc(var(--radius) * 2);
-  height: calc(var(--radius) * 2);
-
-  /* center circle so top card is visible */
-  top: calc(50% + var(--radius) + var(--card-height) * 2);
-  left: 50%;
-  transform-origin: center center;
-  transform: translateX(-50%) rotate(calc(var(--rotate) * 360deg));
-  transition: transform 300ms linear;
-  /*zoom: .3;*/
-  & > div {
-    --card-i: sibling-index();
-
-    /* card position around circle*/
-    --card-offset-radius: circle(var(--radius) at 50% 50%);
-    --card-offset-distance: calc((var(--card-i) - 1) / var(--cards) * 100%);
-
-    /* current card positioning relative to --rotate to detect "top" card */
-    --card-phase: calc((var(--card-i) - 1) / var(--cards) - 0.75);
-    --card-pos: mod(calc(var(--card-phase) + var(--rotate) + 1), 1);
-    --card-dist: min(var(--card-pos), calc(1 - var(--card-pos)));
-
-    --card-grayscale: clamp(0, calc(var(--card-dist) * var(--cards)), 1);
-    --card-opacity: calc(1 - (var(--card-dist) / 0.15));
-
-    /* blur */
-    --card-focus-range: 0.1;
-    --card-max-blur: 7px;
-    --card-norm-dist: min(var(--card-dist), var(--card-focus-range));
-    --card-blur-progress: calc(var(--card-norm-dist) / var(--card-focus-range));
-    --card-blur: calc(var(--card-blur-progress) * var(--card-max-blur));
-
-    /* caption */
-    --caption-active: clamp(0, 1 - (var(--card-dist) / 0.001), 1);
-    --caption-opacity: var(--caption-active);
-    --caption-y: calc(-150px * (1 - var(--caption-active)));
-
-    filter: blur(var(--card-blur)) grayscale(var(--card-grayscale));
-    opacity: var(--card-opacity);
-    container: size;
-
-    offset-path: var(--card-offset-radius);
-    offset-distance: var(--card-offset-distance);
-    offset-rotate: auto;
-    offset-anchor: 50% 100%;
-
-    position: absolute;
-    width: var(--card-width);
-    aspect-ratio: 4/6;
-    object-fit: cover;
-    border-radius: var(--card-border-radius);
-    transition: all 300ms ease-in-out;
-    transform-origin: center calc(var(--card-height) * 2 * -1);
-    /*
-      &::before{
-        content: counter(i);
-        counter-reset: i var(--caption-opacity);
-      }
-      */
-    &::after {
-      content: attr(data-title);
-      position: absolute;
-      top: 100%;
-      left: 1rem;
-      opacity: var(--caption-opacity);
-      translate: 0 var(--caption-y);
-      font-size: clamp(1rem, 2vw + 0.045rem, 1.6rem);
-      z-index: -1;
-      transition:
-        opacity 300ms ease-in-out,
-        translate 300ms ease-in-out;
-    }
-    & > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
-    }
-  }
+.slider-thumb::before {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  width: 68%;
+  height: 68%;
+  background-color: var(--color);
+  box-shadow: inset 0 -8px 4px rgb(0 0 0 / 0.1);
 }
 
-.mouse {
-  position: fixed;
-  bottom: 1rem;
-  left: 50%;
-  translate: -50% 0;
-  display: block;
-  width: 50px;
-  height: 50px;
-  opacity: 1;
-  color: var(--mouse-color);
-  display: none;
-  animation-name: mouse;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  animation-timeline: scroll(nearest block);
-  @supports (animation-timeline: scroll()) {
-    display: block;
-  }
-}
-@keyframes mouse {
-  75% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+.slider-value-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.5em;
+  position: absolute;
+  bottom: 1em;
+  transform: translateY(-100%);
+  border: 1px solid #dbdbe3;
+  border-radius: 50px;
+  padding: 0.25em 0.75em;
+  background-color: #f2f2f3;
+  box-shadow: 0 0.0625em 0.25em rgb(0 0 0 / 0.1);
+  font-size: 0.5em;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* general styling not relevant for this demo */
-:where(.wrapper) {
-  color-scheme: light dark;
-  --bg-dark: rgb(16, 24, 40);
-  --bg-light: rgb(248, 244, 238);
-  --txt-light: rgb(10, 10, 10);
-  --txt-dark: rgb(245, 245, 245);
-  --line-light: rgba(0 0 0 / 0.25);
-  --line-dark: rgba(255 255 255 / 0.25);
-
-  --clr-bg: light-dark(var(--bg-light), var(--bg-dark));
-  --clr-txt: light-dark(var(--txt-light), var(--txt-dark));
-  --clr-lines: light-dark(var(--line-light), var(--line-dark));
+.slider-value {
+  color: black;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-body {
-  background-color: var(--clr-bg);
-  color: var(--clr-txt);
-  min-height: 100svh;
-  margin: 0;
-  padding: 2rem;
-  font-family: system, sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  display: grid;
-  place-items: center;
-  gap: 2rem;
-  & > * {
-    /*outline: 1px dashed red;*/
-  }
+.slider-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 1px 0 #fff);
+  overflow: visible;
 }
-h1 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-@supports not (animation-timeline: scroll()) {
-  body::before {
-    content: "Sorry, your browser doesn't support animation-timeline";
-    position: fixed;
-    top: 2rem;
-    left: 50%;
-    translate: -50% 0;
-    font-size: 0.8rem;
-  }
+
+.slider-svg-path {
+  touch-action: none;
+  cursor: pointer;
 }
 </style>

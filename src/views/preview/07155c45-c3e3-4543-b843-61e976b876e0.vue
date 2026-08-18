@@ -1,177 +1,259 @@
 <template>
-  <div class="canvas">
-    <div class="puddle" style="--x: 1.55em; --y: 3.73em">Roses are red</div>
-    <div class="puddle" style="--x: 1.5em; --y: 1.8em">Violets are blue</div>
-    <div class="puddle" style="--x: -1.5em; --y: -1.8em">Unexpected ";"</div>
-    <div class="puddle" style="--x: -1.3em; --y: -3.7em">On line 32</div>
+  <div class="flex flex-col gap-4">
+    <h1>Domino Clock <span class="time">0:00:00 PM</span></h1>
+    <div class="dominos-container">
+      <div class="domino">
+        <div class="part part-top">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="part part-bottom">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="colon">:</div>
+      <div class="domino">
+        <div class="part part-top">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="part part-bottom">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="domino">
+        <div class="part part-top">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="part part-bottom">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="colon">:</div>
+      <div class="domino">
+        <div class="part part-top">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="part part-bottom">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="domino">
+        <div class="part part-top">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="part part-bottom">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="ampm">AM</div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 
-class Droppy {
-  DEFAULT_OPTIONS = {
-    canvasSelector: '.canvas',
-    textSelector: '.puddle',
-    letterClassName: 'puddle__letter',
-    dropsClassName: 'combined-puddles',
-    delayBetweenDrops: 95,
-    dropTypes: 10,
-    wordAngleRange: [-3, 3]
-  }
-
-  constructor(opts) {
-    this.opts = { ...this.DEFAULT_OPTIONS, ...opts }
-    this.$textSelector = document.querySelectorAll(this.opts.textSelector)
-    this.$canvas = document.querySelector(this.opts.canvasSelector)
-    this.init()
-  }
-
-  init() {
-    this.injectSVGFilter()
-    this.wrapLetters()
-    this.addDelayToEachLetter()
-    this.createDrops()
-    this.startAnimation()
-  }
-
-  getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  startAnimation() {
-    this.$canvas.classList.add('canvas--animated')
-  }
-
-  wrapLetters() {
-    this.$textSelector.forEach($word => {
-      const letters = Array.from($word.innerText).map(letter => {
-        const dropType = this.getRandomInt(1, this.opts.dropTypes)
-        const className = `${this.opts.letterClassName} ${this.opts.letterClassName}--t-${dropType}`
-        return `<div class="${className}">${letter}</div>`
-      })
-      const angle = this.getRandomInt(
-        this.opts.wordAngleRange[0],
-        this.opts.wordAngleRange[1]
-      )
-
-      $word.style.cssText += `--r:${angle}deg`
-      $word.innerHTML = letters.join('')
-    })
-  }
-
-  addDelayToEachLetter() {
-    const letters = document.querySelectorAll(`.${this.opts.letterClassName}`)
-
-    Array.from(letters, ($letter, index) => {
-      const delay = index * this.opts.delayBetweenDrops
-      $letter.style.cssText += `--delay:${delay}ms`
-    })
-  }
-
-  createDrops() {
-    const $drops = document.createElement('div')
-    $drops.className = this.opts.dropsClassName
-
-    Array.from(this.$textSelector, $word =>
-      $drops.appendChild($word.cloneNode(true))
-    )
-
-    this.$canvas.appendChild($drops)
-  }
-
-  injectSVGFilter() {
-    const filter =
-      '<svg style="display:none;"><filter id="drops-filter" x="-50%" width="200%" y="-50%" height="200%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" /><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7" result="cm" /></filter></svg>'
-    this.$canvas.insertAdjacentHTML('beforeend', filter)
-  }
-}
-
 onMounted(() => {
-  new Droppy()
+  const numberdots = [
+    '000000000000000000',
+    '000010000000000000',
+    '000010000000010000',
+    '100000001000010000',
+    '100000001100000001',
+    '100010001100000001',
+    '100010001100010001',
+    '101000101100010001',
+    '101000101101000101',
+    '101010101101000101',
+    '101010101101010101',
+    '101101101101010101',
+    '101101101101101101'
+  ]
+  const dominos = document.querySelectorAll('.domino')
+  const ampm_el = document.querySelector('.ampm')
+  const time_el = document.querySelector('.time')
+
+  intfunc()
+  const interval = setInterval(intfunc, 1000)
+
+  function intfunc() {
+    const [values, ampm, time] = getValues()
+
+    dominos.forEach((domino, domino_index) => {
+      const dots = domino.querySelectorAll('.part > *')
+      dots.forEach(
+        (dot, dot_index) =>
+          (dot.dataset.active = +numberdots[values[domino_index]][dot_index])
+      )
+    })
+
+    ampm_el.innerText = ampm
+    time_el.innerText = time
+  }
+
+  function getValues() {
+    const d = new Date()
+    const h = d.getHours()
+    const minutes = d.getMinutes()
+    const seconds = d.getSeconds()
+    const ampm = h >= 12 ? 'pm' : 'am'
+    const hours = h % 12 || 12
+    const minutesLeft = Math.floor(minutes / 10)
+    const minutesRight = minutes % 10
+    const secondsLeft = Math.floor(seconds / 10)
+    const secondsRight = seconds % 10
+    const time = d.toLocaleTimeString('en-us')
+    return [
+      [hours, minutesLeft, minutesRight, secondsLeft, secondsRight],
+      ampm,
+      time
+    ]
+  }
 })
 </script>
 
-<style lang="scss" scoped>
-@use 'sass:math';
-
-@function randomNum($min, $max) {
-  $randomNum: $min + math.random() * ($max - $min);
-  @return $randomNum;
+<style scoped>
+h1 {
+  font-size: 3rem;
 }
-
-:where(.canvas) {
-  --text-color: #f6f1e6;
-  --drops-color: #231d1c;
+h1 > span {
+  font-size: 1rem;
+  color: rgb(80, 80, 80);
 }
-
-.canvas {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-
-  &--animated {
-    .puddle__letter {
-      animation-play-state: running;
-    }
-  }
-}
-
-.puddle {
-  position: absolute;
+.dominos-container {
   display: flex;
-  transform: rotate(var(--r, 0deg))
-    translate(calc(-50% - var(--x, 0)), calc(-50% - var(--y, 0)));
-  top: 50%;
-  left: 50%;
-  color: var(--text-color);
-  font-size: 6vmin;
-  white-space: pre;
-
-  &__letter {
-    transform: translateY(800px);
-    padding: 0.1em 0.2em;
-    margin: -0.1em -0.2em;
-    will-change: transform;
-    animation: drop 0.8s var(--delay) ease-out forwards paused;
-  }
+  gap: 2em;
+  align-items: center;
+  font-size: 1vw;
+}
+.colon,
+.ampm {
+  font-size: 5em;
+}
+.domino {
+  width: 12em;
+  background: linear-gradient(
+    to bottom right,
+    rgb(39, 39, 39),
+    rgb(17, 17, 17)
+  );
+  box-shadow:
+    inset 0.1em 0.1em 0.2em rgba(255, 255, 255, 0.2),
+    inset -0.1em -0.1em 0.2em rgba(0, 0, 0, 0.9),
+    0.1em 0.1em 2em rgba(0, 0, 0, 1);
+  display: grid;
+  border-radius: 1em;
+  gap: 2em;
+  padding: 2em;
+}
+.domino::before {
+  content: '';
+  height: 0.25em;
+  background: white;
+  grid-row: 2;
+  border-radius: 0.25em;
+}
+.domino .part {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
 }
 
-.combined-puddles {
-  position: relative;
-  height: 100%;
-  z-index: -1;
-  filter: url(#drops-filter);
-  user-select: none;
-
-  .puddle__letter {
-    border-radius: 50%;
-    color: var(--drops-color);
-    background-color: currentColor;
-
-    @for $i from 1 through 10 {
-      &--t-#{$i} {
-        box-shadow: #{randomNum(-0.03, 0.03)}em
-          #{randomNum(-0.03, 0.03)}em
-          0
-          #{randomNum(0.2, 0.4)}em
-          currentColor;
-      }
-    }
-  }
+.part span {
+  aspect-ratio: 1/1;
+  width: 100%;
+  border-radius: 50%;
+  box-shadow:
+    inset 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.7),
+    inset -0.1em -0.1em 0.1em rgba(255, 255, 255, 0.1);
+  background-image: linear-gradient(transparent 50%, rgba(240, 240, 240) 50%);
+  background-size: 100% 220%;
+  background-position: 0 0%;
+  transition: background-position 0.25s ease;
 }
 
-@keyframes drop {
-  0% {
-    transform: translate(0, 100vh);
-  }
-  85% {
-    transform: translate(0, -0.15em);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
+.part span[data-active='1'] {
+  background-position: 0 -90%;
 }
 </style>

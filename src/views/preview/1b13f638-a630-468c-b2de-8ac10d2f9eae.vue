@@ -1,221 +1,176 @@
 <template>
-  <div class="wrapper size-full">
-    <svg viewBox="0 0 0 0">
-      <defs>
-        <path
-          id="feet-shape"
-          d="M41.5,30.2C36,24.6,4.7,26.1,7.7,49.4c.8,5.9,4,10.2,8,19.9,3,7.2-.1,15.7,5.8,20.8S43,91.6,38.6,75.9c-1.8-6.5-7.6-9.3-8.9-14.1C26.1,47.9,51.7,40.6,41.5,30.2Z M41.7,7.6c-2.6-.3-5.2,2.8-5.6,7s1.3,7.8,3.9,8.1,5.2-2.9,5.6-7.1S44.4,7.8,41.7,7.6Z M28.8,21.9c2.2.2,4.1-2.1,4.5-5.1s-1.1-5.7-3.2-6-4.1,2.1-4.5,5.1S26.7,21.6,28.8,21.9Z M20.1,23.3c1.6.1,3.1-1.8,3.4-4.4s-.8-4.7-2.4-4.9-3,1.8-3.3,4.3S18.5,23.1,20.1,23.3Z M14.9,25.5c1.4-.2,2.4-1.9,2.1-3.9s-1.6-3.4-3-3.3-2.4,2-2.2,3.9S13.4,25.7,14.9,25.5Z M10.9,29.2c1-.1,1.7-1.4,1.5-2.8s-1.1-2.5-2.2-2.4-1.7,1.4-1.6,2.8S9.8,29.3,10.9,29.2Z"
-        />
-        <symbol id="feet-left" viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="none" />
-          <use xlink:href="#feet-shape" />
-        </symbol>
-        <symbol id="feet-right" viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="none" />
-          <g transform="scale(-1, 1) translate(-100, 0)">
-            <use xlink:href="#feet-shape" />
-          </g>
-        </symbol>
-      </defs>
-      <use />
-    </svg>
+  <div class="box">
+    <button class="btn">
+      <span>Let's go</span>
+      <canvas id="canvas"></canvas>
+    </button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { gsap } from 'gsap'
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  const svgEl = document.querySelector('svg') as SVGElement
-  let feetEls: any[] = []
+  const CANVAS = document.querySelector('#canvas')
+  const btnEl = document.querySelector('.btn')
+  const ctx = CANVAS.getContext('2d')
+  const NUM_PARTICLES = 50
+  const MAX_Z = 2
+  const MAX_R = 2
+  const Z_SPD = 2
+  const PARTICLES = []
+  let W,
+    H,
+    XO,
+    YO = 0
 
-  const pointer = {
-    x: 0,
-    y: 0,
-    dx: 0,
-    dy: 0,
-    angle: 0,
-    moving: false,
-    justStopped: false
-  }
+  let isGoing = false
 
-  const stepsNumber = 9
-  const iconSize = 50
-  const mouseRepel = 35
-  const feetPositions: any[] = []
-
-  updateLayout()
-  window.addEventListener('resize', updateLayout)
-
-  createFeet()
-
-  let stepsCnt = 0
-  let accumDx = 0
-  let accumDy = 0
-  let accumDist = 0
-
-  let introAnimationIsPlaying = false
-  render()
-  introAnimation()
-
-  window.addEventListener('mousemove', e => {
-    if (!introAnimationIsPlaying) {
-      onPointerMove(e.pageX, e.pageY)
+  class Particle {
+    constructor(x, y, z) {
+      this.pos = new Vector(x, y, z)
+      const X_VEL = 0,
+        Y_VEL = 0,
+        Z_VEL = -Z_SPD
+      this.vel = new Vector(X_VEL, Y_VEL, Z_VEL)
+      this.vel.scale(0.01)
+      this.fill = 'rgba(255,255,255,0.3)'
+      this.stroke = this.fill
     }
-  })
-  window.addEventListener('touchmove', e => {
-    if (!introAnimationIsPlaying) {
-      onPointerMove(e.targetTouches[0].pageX, e.targetTouches[0].pageY)
+
+    update() {
+      this.pos.add(this.vel)
     }
-  })
 
-  function updateLayout() {
-    svgEl.setAttribute(
-      'viewBox',
-      '0 0 ' + window.innerWidth + ' ' + window.innerHeight
-    )
-  }
+    render() {
+      const PIXEL = to2d(this.pos),
+        X = PIXEL[0],
+        Y = PIXEL[1],
+        R = ((MAX_Z - this.pos.z) / MAX_Z) * MAX_R
 
-  function createFeet() {
-    for (let i = 0; i < stepsNumber; i++) {
-      // const el = document.createElementNS('http://www.w3.org/2000/svg', 'use')
-      const el = document.querySelector('use')!
-      el.setAttribute('href', i % 2 ? '#feet-left' : '#feet-right')
-      el.setAttribute('x', '-' + 0.5 * iconSize)
-      el.setAttribute('y', '-' + 0.5 * iconSize)
-      el.setAttribute('width', '' + iconSize)
-      el.setAttribute('height', '' + iconSize)
-      // svgEl.appendChild(el)
+      if (X < 0 || X > W || Y < 0 || Y > H) this.pos.z = MAX_Z
 
-      feetPositions.push({ x: 0, y: 0, angle: 0, age: 0 })
-      feetEls.push(el)
-
-      gsap.set(el, {
-        opacity: 0,
-        transformOrigin: 'center center'
-      })
+      this.update()
+      ctx.beginPath()
+      ctx.fillStyle = this.fill
+      ctx.strokeStyle = this.stroke
+      ctx.arc(X, PIXEL[1], R, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.stroke()
+      ctx.closePath()
     }
   }
 
-  function onPointerMove(x, y) {
-    pointer.dx = x - pointer.x
-    pointer.dy = y - pointer.y
-    pointer.x = x
-    pointer.y = y
-    pointer.moving = true
+  class Vector {
+    constructor(x, y, z) {
+      this.x = x
+      this.y = y
+      this.z = z
+    }
 
-    accumDx += pointer.dx
-    accumDy += pointer.dy
-    pointer.angle = Math.atan2(pointer.dx, pointer.dy)
-    accumDist = Math.sqrt(Math.pow(accumDx, 2) + Math.pow(accumDy, 2))
+    add(v) {
+      this.x += v.x
+      this.y += v.y
+      this.z += v.z
+    }
 
-    if (accumDist > 70) {
-      stepsCnt++
-      accumDx = 0
-      accumDy = 0
-      accumDist = 0
+    scale(n) {
+      this.x *= n
+      this.y *= n
+      this.z *= n
+    }
+  }
 
-      feetPositions.unshift({
-        x: pointer.x,
-        y: pointer.y,
-        angle: (1 - pointer.angle / Math.PI) * 180,
-        age: 1
-      })
-      feetPositions.length = stepsNumber
+  function to2d(v) {
+    const X_COORD = v.x - XO,
+      Y_COORD = v.y - YO,
+      PX = X_COORD / v.z,
+      PY = Y_COORD / v.z
+    return [PX + XO, PY + YO]
+  }
 
-      feetPositions[0].x -= Math.sin(pointer.angle) * mouseRepel
-      feetPositions[0].y -= Math.cos(pointer.angle) * mouseRepel
-
-      for (let fIdx = 1; fIdx < stepsNumber; fIdx++) {
-        updateFootEl(feetEls[fIdx], fIdx, fIdx % 2 === stepsCnt % 2)
-      }
-
-      gsap.set(feetEls[0], {
-        opacity: 0
-      })
+  const createParticles = () => {
+    for (let i = 0; i < NUM_PARTICLES; i++) {
+      const X = Math.random() * W,
+        Y = Math.random() * H,
+        Z = Math.random() * MAX_Z
+      PARTICLES.push(new Particle(X, Y, Z))
     }
   }
 
   function render() {
-    for (let fIdx = 1; fIdx < stepsNumber; fIdx++) {
-      feetPositions[fIdx].age -= pointer.moving ? 0.05 : 0.1
+    for (let i = 0; i < PARTICLES.length; i++) {
+      PARTICLES[i].render()
     }
-
-    for (let fIdx = 2; fIdx < stepsNumber; fIdx++) {
-      gsap.set(feetEls[fIdx], {
-        opacity: feetPositions[fIdx].age
-      })
-    }
-
-    if (pointer.moving) {
-      pointer.moving = false
-      pointer.justStopped = true
-    } else if (pointer.justStopped) {
-      pointer.justStopped = false
-
-      // Do it once when cursor stopped moving
-      updateFootEl(feetEls[0], 0, 0 === stepsCnt % 2)
-      gsap.set(feetEls[0], {
-        opacity: 1
-      })
-
-      updateFootEl(feetEls[1], 0, 1 === stepsCnt % 2, 0.1)
-      gsap.set(feetEls[1], {
-        delay: 0.1,
-        opacity: 1
-      })
-
-      for (let fIdx = 2; fIdx < stepsNumber; fIdx++) {
-        updateFootEl(feetEls[fIdx], fIdx - 1, (fIdx - 1) % 2 === stepsCnt % 2)
-      }
-    }
-
-    requestAnimationFrame(render)
   }
 
-  function updateFootEl(el, posIdx, isLeft, delay = 0) {
-    gsap.set(el, {
-      delay: delay,
-      x: feetPositions[posIdx].x,
-      y: feetPositions[posIdx].y,
-      rotation: feetPositions[posIdx].angle,
-      attr: {
-        href: isLeft ? '#feet-left' : '#feet-right'
-      }
-    })
+  function loop() {
+    requestAnimationFrame(loop)
+    if (isGoing) {
+      ctx.fillStyle = 'rgba(0,0,0,0.15)'
+      ctx.fillRect(0, 0, W, H)
+      render()
+    } else {
+      ctx.clearRect(0, 0, W, H)
+    }
+  }
+  const onBtnClick = ev => {
+    if (isGoing) {
+      isGoing = false
+      btnEl.classList.remove('active')
+    } else {
+      isGoing = true
+      btnEl.classList.add('active')
+    }
+    console.log('changed to', isGoing)
   }
 
-  function introAnimation() {
-    introAnimationIsPlaying = true
-    const mouseCoords = { x: -100, y: window.innerHeight }
-    gsap
-      .timeline({
-        onUpdate: () => {
-          onPointerMove(mouseCoords.x, mouseCoords.y)
-        },
-        onComplete: () => {
-          introAnimationIsPlaying = false
-        }
-      })
-      .to(mouseCoords, {
-        x: 0.4 * window.innerWidth,
-        ease: 'power1.out'
-      })
-      .to(
-        mouseCoords,
-        {
-          y: 0.6 * window.innerHeight,
-          ease: 'back.out(3)'
-        },
-        0
-      )
+  const init = () => {
+    btnEl.addEventListener('click', onBtnClick)
+    canvas.width = W = btnEl.offsetWidth
+    canvas.height = H = btnEl.offsetHeight
+    XO = W / 2
+    YO = H / 2
+    createParticles()
+    loop()
   }
+
+  init()
 })
 </script>
 
-<style scoped>
-svg {
-  display: block;
+<style lang="scss" scoped>
+.btn {
+  background: #fff;
+  position: relative;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 1em 4em;
+  border-radius: 100px;
+  overflow: hidden;
+  font-size: 21px;
+  &.active {
+    background: #000;
+    border: 1px solid white;
+    span {
+      color: white;
+    }
+  }
+  span {
+    font-size: 2em;
+    position: relative;
+    z-index: 200;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  canvas {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

@@ -1,322 +1,363 @@
 <template>
-  <div class="app">
-    <div class="scene -gallery">
-      <div class="item" data-key="owl">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-owl.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="deer">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-deer.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="hipster">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-hipster.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-ram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="dog">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-dog.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram-side">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-sideram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram-horns">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-multiram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="gorilla">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-gorilla.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="bird">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-bird.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="owl2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-owl.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="deer2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-deer.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="hipster2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-hipster.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-ram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="dog2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-dog.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram-side2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-sideram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="ram-horns2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-multiram.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="gorilla2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-gorilla.png"
-          alt=""
-        />
-      </div>
-      <div class="item" data-key="bird2">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/181794/kl-bird.png"
-          alt=""
-        />
-      </div>
+  <form class="fr" action="">
+    <label class="fr__label" for="face-rating">How was your experience?</label>
+    <div class="fr__face" role="img" aria-label="Straight face">
+      <div class="fr__face-right-eye" data-right></div>
+      <div class="fr__face-left-eye" data-left></div>
+      <div class="fr__face-mouth-lower" data-mouth-lower></div>
+      <div class="fr__face-mouth-upper" data-mouth-upper></div>
     </div>
-    <div class="scene -detail">
-      <div class="detail">
-        <img />
-        <div class="content">
-          <div class="title">Great Horned Owl</div>
-          <div class="creator">Krystine Lopez</div>
-          <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure cum,
-            est amet delectus, blanditiis voluptatem laborum pariatur
-            consequatur quae voluptate, nisi. Laborum adipisci iste earum
-            distinctio, fugit, quas ipsa impedit.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <input
+      class="fr__input"
+      id="face-rating"
+      type="range"
+      value="2.5"
+      min="0"
+      max="5"
+      step="0.1"
+    />
+  </form>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 
-onMounted(() => {
-  const items = document.querySelectorAll('.item')
-  const detailItem = document.querySelector('.detail') as HTMLElement
-  const detailScene = document.querySelector('.scene.-detail') as HTMLElement
+class FaceRating {
+  constructor(qs) {
+    this.input = document.querySelector(qs)
+    this.input?.addEventListener('input', this.update.bind(this))
+    this.face = this.input?.previousElementSibling
+    this.update()
+  }
+  update(e) {
+    let value = this.input.defaultValue
 
-  detailScene.style.display = 'none'
+    // when manually set
+    if (e) value = e.target?.value
+    // when initiated
+    else this.input.value = value
 
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      const itemImage = item.querySelector('img') as HTMLImageElement
+    const min = this.input.min || 0
+    const max = this.input.max || 100
+    const percentRaw = ((value - min) / (max - min)) * 100
+    const percent = +percentRaw.toFixed(2)
 
-      detailItem.setAttribute(
-        'data-image',
-        item.getAttribute('data-key') as string
-      )
-      ;(detailItem.querySelector('img') as HTMLImageElement).setAttribute(
-        'src',
-        itemImage.getAttribute('src') as string
-      )
+    this.input?.style.setProperty('--percent', `${percent}%`)
 
-      detailScene.style.display = 'block'
-      ;(item as HTMLElement).style.opacity = '0'
+    // face and range fill colors
+    const maxHue = 120
+    const hueExtend = 30
+    const hue = Math.round((maxHue * percent) / 100)
 
-      let firstRect = itemImage.getBoundingClientRect()
-      let lastRect = detailItem.getBoundingClientRect()
+    let hue2 = hue - hueExtend
+    if (hue2 < 0) hue2 += 360
 
-      detailItem.animate(
-        [
-          {
-            transform: `
-          translateX(${firstRect.left - lastRect.left}px)
-          translateY(${firstRect.top - lastRect.top}px)
-          scale(${firstRect.width / lastRect.width})
-        `
-          },
-          {
-            transform: `
-          translateX(0)
-          translateY(0)
-          scale(1)
-         `
-          }
-        ],
-        {
-          duration: 600,
-          easing: 'cubic-bezier(0.2, 0, 0.2, 1)'
-        }
-      )
+    const hues = [hue, hue2]
+    hues.forEach((h, i) => {
+      this.face?.style.setProperty(`--face-hue${i + 1}`, h)
     })
-  })
 
-  detailItem.addEventListener('click', () => {
-    const itemImage = document.querySelector(
-      `[data-key="${detailItem.getAttribute('data-image')}"]`
-    ) as HTMLElement
+    this.input?.style.setProperty('--input-hue', hue)
 
-    let itemImageRect = itemImage.getBoundingClientRect()
-    let detailItemRect = detailItem.getBoundingClientRect()
+    // emotions
+    const duration = 1
+    const delay = (-(duration * 0.99) * percent) / 100
+    const parts = ['right', 'left', 'mouth-lower', 'mouth-upper']
 
-    detailScene.style.display = 'none'
-    itemImage.style.opacity = '1'
+    parts.forEach(p => {
+      const el = this.face?.querySelector(`[data-${p}]`)
+      el?.style.setProperty(`--delay-${p}`, `${delay}s`)
+    })
 
-    itemImage.animate(
-      [
-        {
-          zIndex: 2,
-          transform: `
-          translateX(${detailItemRect.left - itemImageRect.left}px)
-          translateY(${detailItemRect.top - itemImageRect.top}px)
-  scale(${detailItemRect.width / itemImageRect.width})
-        `
-        },
-        {
-          zIndex: 2,
-          transform: `
-          translateX(0)
-          translateY(0)
-          scale(1)
-         `
-        }
-      ],
-      {
-        duration: 600,
-        easing: 'cubic-bezier(0.2, 0, 0.2, 1)'
-      }
-    )
-  })
+    // aria label
+    const faces = [
+      'Sad face',
+      'Slightly sad face',
+      'Straight face',
+      'Slightly happy face',
+      'Happy face'
+    ]
+    let faceIndex = Math.floor((faces.length * percent) / 100)
+    if (faceIndex === faces.length) --faceIndex
+
+    this.face?.setAttribute('aria-label', faces[faceIndex])
+  }
+}
+
+onMounted(() => {
+  new FaceRating('#face-rating')
 })
 </script>
 
-<style lang="scss" scoped>
-$app-width: 80vmin;
-$app-height: 80vmin;
+<style scoped>
+:where(.fr) {
+  --hue: 223;
+  --white: hsl(var(--hue), 10%, 100%);
+  --lt-gray: hsl(var(--hue), 10%, 95%);
+  --gray1: hsl(var(--hue), 10%, 90%);
+  --gray2: hsl(var(--hue), 10%, 80%);
+  --gray7: hsl(var(--hue), 10%, 30%);
+  --gray9: hsl(var(--hue), 10%, 10%);
+  --primary: hsl(var(--hue), 90%, 55%);
+  --trans-dur: 0.3s;
+  font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+}
+input {
+  font:
+    1em/1.5 'DM Sans',
+    sans-serif;
+}
 
-.app {
+/* Main styles */
+.fr {
+  animation: fade-slide-in 0.6s ease-out;
+  padding: 0 1.5em;
+  max-width: 20em;
+}
+.fr__face {
+  --face-hue1: 60;
+  --face-hue2: 30;
+  background-image: linear-gradient(
+    135deg,
+    hsl(var(--face-hue1), 90%, 55%),
+    hsl(var(--face-hue2), 90%, 45%)
+  );
+  border-radius: 50%;
+  box-shadow: 0 0.5em 0.75em hsla(var(--face-hue2), 90%, 55%, 0.3);
+  margin: 0 auto 2em;
   position: relative;
-  height: $app-height;
-  width: $app-width;
-  background: white;
-  overflow: hidden;
+  width: 3em;
+  height: 3em;
 }
-
-.scene {
-  display: flex;
+.fr__face-right-eye,
+.fr__face-left-eye,
+.fr__face-mouth-lower,
+.fr__face-mouth-upper {
   position: absolute;
-  top: 0;
-  left: 0;
+  transition:
+    background-color var(--trans-dur),
+    box-shadow var(--trans-dur),
+    color var(--trans-dur);
+}
+.fr__face-right-eye,
+.fr__face-left-eye {
+  background-color: var(--white);
+  border-radius: 50%;
+  top: 0.75em;
+  width: 0.6em;
+  height: 0.6em;
+}
+.fr__face-right-eye {
+  --delay-right: 0s;
+  animation: right-eye 1s var(--delay-right) linear paused;
+  clip-path: polygon(0 75%, 100% 0, 100% 100%, 0 100%);
+  left: 0.6em;
+}
+.fr__face-left-eye {
+  --delay-left: 0s;
+  animation: left-eye 1s var(--delay-left) linear paused;
+  clip-path: polygon(0 0, 100% 75%, 100% 100%, 0 100%);
+  right: 0.6em;
+}
+.fr__face-mouth-lower,
+.fr__face-mouth-upper {
+  color: var(--white);
+  top: 1.75em;
+  left: 0.75em;
+  width: 1.5em;
+  height: 0.75em;
+}
+.fr__face-mouth-lower {
+  --delay-mouth-lower: 0s;
+  animation: mouth-lower 1s var(--delay-mouth-lower) linear paused;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 0 0.125em 0 inset;
+}
+.fr__face-mouth-upper {
+  --delay-mouth-upper: 0s;
+  animation: mouth-upper 1s var(--delay-mouth-upper) linear paused;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  box-shadow: 0 -0.125em 0 inset;
+}
+.fr__label {
+  display: block;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+.fr__input {
+  --input-hue: 60;
+  --percent: 50%;
+  background-color: var(--gray1);
+  background-image: linear-gradient(
+    hsl(var(--input-hue), 90%, 45%),
+    hsl(var(--input-hue), 90%, 45%)
+  );
+  background-size: var(--percent) 100%;
+  background-repeat: no-repeat;
+  border-radius: 0.25em;
+  display: block;
+  margin: 0.5em auto;
   width: 100%;
-  height: 100%;
-  max-height: 100%;
-  overflow-y: scroll;
+  max-width: 10em;
+  height: 0.5em;
+  transition: background-color var(--trans-dur);
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.fr__input:focus {
+  outline: transparent;
+}
 
-  &.-gallery {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
+/* WebKit */
+.fr__input::-webkit-slider-thumb {
+  background-color: var(--white);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 0.125em 0.5em hsl(0, 0%, 0%, 0.3);
+  width: 1.5em;
+  height: 1.5em;
+  transition: background-color 0.15s linear;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.fr__input:focus::-webkit-slider-thumb,
+.fr__input::-webkit-slider-thumb:hover {
+  background-color: var(--lt-gray);
+}
 
-    > .item {
-      flex-basis: 30%;
-      flex-grow: 0;
-      flex-shrink: 0;
-      height: auto;
-      min-height: $app-width / 3;
-      // overflow: hidden;
-    }
+/* Firefox */
+.fr__input::-moz-range-thumb {
+  background-color: var(--white);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 0.125em 0.5em hsl(0, 0%, 0%, 0.3);
+  width: 1.5em;
+  height: 1.5em;
+  transition: background-color 0.15s linear;
+}
+.fr__input:focus::-moz-range-thumb,
+.fr__input::-moz-range-thumb:hover {
+  background-color: var(--lt-gray);
+}
+
+/* `:focus-visible` support */
+@supports selector(:focus-visible) {
+  .fr__input:focus::-webkit-slider-thumb {
+    background-color: var(--white);
+  }
+  .fr__input:focus-visible::-webkit-slider-thumb,
+  .fr__input::-webkit-slider-thumb:hover {
+    background-color: var(--lt-gray);
+  }
+  .fr__input:focus::-moz-range-thumb {
+    background-color: var(--white);
+  }
+  .fr__input:focus-visible::-moz-range-thumb,
+  .fr__input::-moz-range-thumb:hover {
+    background-color: var(--lt-gray);
   }
 }
 
-.item {
-  transform-origin: top left;
-
-  > img {
-    height: auto;
-    width: 100%;
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--gray9);
+    color: var(--gray1);
+  }
+  .fr__face-right-eye,
+  .fr__face-left-eye {
+    background-color: var(--gray9);
+  }
+  .fr__face-mouth-lower,
+  .fr__face-mouth-upper {
+    color: var(--gray9);
+  }
+  .fr__input {
+    background-color: var(--gray7);
   }
 }
 
-.detail {
-  color: white;
-  width: $app-width;
-  height: $app-height;
-  transform-origin: top left;
-  display: flex;
-  flex-direction: column;
-
-  > img {
-    height: auto;
-    width: 100%;
-    height: auto;
-    flex: 0 1 auto;
-    z-index: 1;
+/* Animations */
+@keyframes fade-slide-in {
+  from,
+  16.67% {
+    opacity: 0;
+    transform: translateY(25%);
   }
-
-  > .content {
-    background: #232323;
-    flex: 1 0 auto;
-    padding: 2rem 1.5rem;
-    animation: slide-down 0.6s ease-in-out;
-
-    @keyframes slide-down {
-      from {
-        transform: translateY(-100%);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    > * {
-      margin-bottom: 1rem;
-    }
-
-    > .title {
-      font-size: 2rem;
-      text-transform: uppercase;
-    }
-
-    > .creator {
-      opacity: 0.6;
-      margin-top: -0.5rem;
-    }
-
-    > .description {
-      line-height: 1.5;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes right-eye {
+  from {
+    clip-path: polygon(0 75%, 100% 0, 100% 100%, 0 100%);
+  }
+  50%,
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes left-eye {
+  from {
+    clip-path: polygon(0 0, 100% 75%, 100% 100%, 0 100%);
+  }
+  50%,
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes mouth-lower {
+  from {
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    top: 1.75em;
+    height: 0.75em;
+    visibility: visible;
+  }
+  40% {
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    top: 1.95em;
+    height: 0.25em;
+    visibility: visible;
+  }
+  50%,
+  to {
+    border-radius: 0;
+    top: 2em;
+    height: 0.125em;
+    visibility: hidden;
+  }
+}
+@keyframes mouth-upper {
+  from,
+  50% {
+    border-radius: 0;
+    box-shadow: 0 -0.125em 0 inset;
+    top: 2em;
+    height: 0.125em;
+    visibility: hidden;
+  }
+  62.5% {
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    box-shadow: 0 -0.125em 0 inset;
+    top: 1.95em;
+    height: 0.25em;
+    visibility: visible;
+  }
+  75% {
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    box-shadow: 0 -0.125em 0 inset;
+    top: 1.825em;
+    height: 0.5em;
+    visibility: visible;
+  }
+  to {
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    box-shadow: 0 -0.8em 0 inset;
+    top: 1.75em;
+    height: 0.75em;
+    visibility: visible;
   }
 }
 </style>

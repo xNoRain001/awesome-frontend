@@ -1,301 +1,202 @@
 <template>
-  <div class="scene">
-    <div class="wrapper">
-      <div class="warp">
-        <div class="warp__side warp__side--top"></div>
-        <div class="warp__side warp__side--right"></div>
-        <div class="warp__side warp__side--bottom"></div>
-        <div class="warp__side warp__side--left"></div>
-      </div>
-    </div>
-  </div>
+  <button class="glow-button">
+    <span>Button</span>
+  </button>
 </template>
 
 <script lang="ts" setup>
+import chroma from 'chroma-js'
 import { gsap } from 'gsap'
-import { GUI } from 'https://esm.sh/dat.gui'
 import { onMounted } from 'vue'
 
-const SIDES = ['top', 'right', 'bottom', 'left']
+const generateGlowButtons = () => {
+  document.querySelectorAll('.glow-button').forEach(button => {
+    let gradientElem = button.querySelector('.gradient')
 
-const CONFIG = {
-  perspective: false,
-  reduced: 1,
-  rx: -24,
-  ry: -24,
-  bn: 5,
-  hl: 1,
-  hu: 359,
-  sl: 1,
-  su: 4,
-  dl: 0,
-  du: 5,
-  cell: 5,
-  depth: 100
-}
+    if (!gradientElem) {
+      gradientElem = document.createElement('div')
+      gradientElem.classList.add('gradient')
 
-const GENERATE_BEAMS = () => {
-  for (const SIDE of SIDES) {
-    const CONTAINER = document.querySelector(`.warp__side--${SIDE}`)
-    CONTAINER.innerHTML = ''
-    const NUMBER = gsap.utils.random(1, CONFIG.bn, 1)
-    const BEAMS = new Array(NUMBER).fill({}).map(beam => {
-      return {
-        hue: gsap.utils.random(CONFIG.hl, CONFIG.hu, 1),
-        x: gsap.utils.random(0, 100 / CONFIG.cell - 1, 1),
-        speed: gsap.utils.random(CONFIG.sl, CONFIG.su),
-        delay: gsap.utils.random(CONFIG.dl, CONFIG.du)
-      }
-    })
-    for (const BEAM of BEAMS) {
-      CONTAINER.appendChild(
-        Object.assign(document.createElement('div'), {
-          className: 'beam',
-          style: `
-          --hue: ${BEAM.hue};
-          --ar: ${gsap.utils.random(1, 10, 1)};
-          --x: ${BEAM.x};
-          --speed: ${BEAM.speed};
-          --delay: ${BEAM.delay};
-        `
-        })
-      )
+      button.appendChild(gradientElem)
     }
-  }
-}
 
-const TOGGLE = () => {
-  const showingPerspective = CONFIG.exploded
-  if (!document.startViewTransition)
-    return document.body.toggleAttribute('data-perspective')
-  document.startViewTransition(() => {
-    document.body.toggleAttribute('data-perspective')
+    button.addEventListener('pointermove', e => {
+      const rect = button.getBoundingClientRect()
+
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+
+      gsap.to(button, {
+        '--pointer-x': `${x}px`,
+        '--pointer-y': `${y}px`,
+        duration: 0.6
+      })
+
+      gsap.to(button, {
+        '--button-glow': chroma
+          .mix(
+            getComputedStyle(button)
+              .getPropertyValue('--button-glow-start')
+              .trim(),
+            getComputedStyle(button)
+              .getPropertyValue('--button-glow-end')
+              .trim(),
+            x / rect.width
+          )
+          .hex(),
+        duration: 0.2
+      })
+    })
   })
-}
-
-const UPDATE_CAMERA = () => {
-  document.documentElement.style.setProperty('--rx', CONFIG.rx)
-  document.documentElement.style.setProperty('--ry', CONFIG.ry)
-}
-const UPDATE_GRID = () => {
-  document.documentElement.style.setProperty('--grid-size', `${CONFIG.cell}%`)
-  GENERATE_BEAMS()
-}
-
-const UPDATE_PERSPECTIVE = () => {
-  document.documentElement.style.setProperty('--perspective', CONFIG.depth)
-}
-
-const UPDATE_MOTION_PREF = () => {
-  document.documentElement.style.setProperty('--reduced', CONFIG.reduced)
 }
 
 onMounted(() => {
-  const CTRL = new GUI({
-    width: 320
-  })
-
-  CTRL.add(CONFIG, 'perspective').name('Change View').onChange(TOGGLE)
-  // CTRL.add(CONFIG, 'cell', 1, 50, 1).name('Cell Size (%)').oChange(UPDATE_GRID)
-  CTRL.add(CONFIG, 'depth', 30, 500, 1)
-    .name('Perspective (px)')
-    .onChange(UPDATE_PERSPECTIVE)
-  CTRL.add(CONFIG, 'reduced', 0, 60, 0.1)
-    .name('Motion Multiplier')
-    .onChange(UPDATE_MOTION_PREF)
-  const BEAM_FOLDER = CTRL.addFolder('Beams')
-  BEAM_FOLDER.add(CONFIG, 'bn', 1, 20, 1)
-    .name('Per side (limit)')
-    .onChange(GENERATE_BEAMS)
-  BEAM_FOLDER.add(CONFIG, 'hl', 1, 359, 1)
-    .name('Hue (Lower)')
-    .onChange(GENERATE_BEAMS)
-  BEAM_FOLDER.add(CONFIG, 'hu', 1, 359, 1)
-    .name('Hue (Upper)')
-    .onChange(GENERATE_BEAMS)
-  BEAM_FOLDER.add(CONFIG, 'sl', 0.2, 10, 0.1)
-    .name('Speed (Lower)')
-    .onChange(GENERATE_BEAMS)
-  BEAM_FOLDER.add(CONFIG, 'su', 1, 10, 0.1)
-    .name('Speed (Upper)')
-    .onChange(GENERATE_BEAMS)
-  const CAMERA_FOLDER = CTRL.addFolder('Camera')
-  CAMERA_FOLDER.add(CONFIG, 'rx', -360, 360, 1)
-    .name('Rotate X')
-    .onChange(UPDATE_CAMERA)
-  CAMERA_FOLDER.add(CONFIG, 'ry', -360, 360, 1)
-    .name('Rotate Y')
-    .onChange(UPDATE_CAMERA)
-
-  GENERATE_BEAMS()
-  UPDATE_CAMERA()
-  UPDATE_PERSPECTIVE()
-  UPDATE_MOTION_PREF()
+  generateGlowButtons()
+  // Set variables on resize
+  window.addEventListener('resize', generateGlowButtons)
 })
 </script>
 
-<style scoped>
-:where(.scene) {
-  --accent: hsl(0 0% 0%);
-  /* 	--perspective: 100px; */
-  --grid-size: 5%;
-  --line-width: 1px;
-  --bg: hsl(0 0% 90%);
-  --line: hsl(0 0% 0% / 0.15);
-  --color: hsl(0 0% 4%);
-  --text: hsl(0 0% 15%);
-}
+<style lang="scss" scoped>
+.glow-button {
+  --button-background: #09041e;
+  --button-color: #fff;
+  --button-shadow: rgba(33, 4, 104, 0.2);
+  --button-shine-left: rgba(120, 0, 245, 0.5);
+  --button-shine-right: rgba(200, 148, 255, 0.65);
+  --button-glow-start: #b000e8;
+  --button-glow-end: #009ffd;
 
-@media (prefers-color-scheme: dark) {
-  :where(.scene) {
-    --color: hsl(0 0% 94%);
-    --accent: hsl(0 0% 2%);
-    --bg: hsl(0 0% 4%);
-    --line: hsl(0 0% 100% / 0.15);
-    --text: hsl(0 0% 90%);
-  }
-}
-
-.wrapper {
+  appearance: none;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 11px;
   position: relative;
-  transform-style: preserve-3d;
+  line-height: 24px;
+  cursor: pointer;
+  color: var(--button-color);
+  padding: 0;
+  margin: 0;
+  background: none;
+  z-index: 1;
+  box-shadow: 0 8px 20px var(--button-shadow);
+
+  .gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    transform: scaleY(1.02) scaleX(1.005) rotate(-0.35deg);
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      transform: scale(1.05) translateY(-44px) rotate(0deg) translateZ(0);
+      padding-bottom: 100%;
+      border-radius: 50%;
+      background: linear-gradient(
+        90deg,
+        var(--button-shine-left),
+        var(--button-shine-right)
+      );
+      animation: rotate linear 2s infinite;
+    }
+  }
+
+  span {
+    z-index: 1;
+    position: relative;
+    display: block;
+    padding: 10px 28px;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 124px;
+    border-radius: inherit;
+    background-color: var(--button-background);
+    overflow: hidden;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: -16px;
+      transform: translate(var(--pointer-x, 0px), var(--pointer-y, 0px))
+        translateZ(0);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--button-glow, transparent);
+      opacity: var(--button-glow-opacity, 0);
+      transition: opacity var(--button-glow-duration, 0.5s);
+      filter: blur(20px);
+    }
+  }
+
+  &:hover {
+    --button-glow-opacity: 1;
+    --button-glow-duration: 0.25s;
+  }
 }
 
-.scene {
-  transform: translate3d(-50%, -50%, 1000px);
-  position: fixed;
-  top: 50%;
-  left: 50%;
+@keyframes rotate {
+  to {
+    transform: scale(1.05) translateY(-44px) rotate(360deg) translateZ(0);
+  }
 }
 
-[data-perspective] .wrapper {
-  scale: 0.5;
-  transform: rotateX(calc(var(--rx, 0) * 1deg))
-    rotateY(calc(var(--ry, 0) * -1deg)) rotateX(90deg)
-    translate3d(0, 0, 25cqmax);
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
-[data-perspective] .warp {
-  overflow: visible;
-  clip-path: unset;
-  perspective: unset;
+* {
+  box-sizing: inherit;
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
 }
 
-.wrapper::after {
-  --diff: calc(var(--line-width) * 0.5);
-  content: '';
-  width: 24px;
-  aspect-ratio: 1;
-  background: var(--line);
-  position: absolute;
-  top: 0;
-  left: 0;
-  translate: -50% -50%;
-  background:
-    linear-gradient(
-      90deg,
-      transparent calc(50% - var(--diff)),
-      var(--accent) calc(50% - var(--diff)) calc(50% + var(--diff)),
-      transparent calc(50% + var(--diff))
-    ),
-    linear-gradient(
-      transparent calc(50% - var(--diff)),
-      var(--accent) calc(50% - var(--diff)) calc(50% + var(--diff)),
-      transparent calc(50% + var(--diff))
-    );
-}
-
-.warp {
-  container-type: size;
-  width: 90vmin;
-  aspect-ratio: 4 / 3;
-  perspective: calc(var(--perspective) * 1px);
-  transform-style: preserve-3d;
-  clip-path: inset(0 0 0 0);
-  resize: both;
+// Center
+body {
+  min-height: 100vh;
+  display: flex;
+  font-family: 'Inter', Arial;
+  justify-content: center;
+  align-items: center;
+  background-color: #020112;
   overflow: hidden;
-  min-height: 350px;
-  min-width: 350px;
-}
 
-.warp * {
-  pointer-events: none;
-}
-
-.warp__side {
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  position: absolute;
-  container-type: inline-size;
-  background:
-    linear-gradient(var(--line) 0 1px, transparent 1px var(--grid-size))
-      50% -0.5px / var(--grid-size) var(--grid-size),
-    linear-gradient(90deg, var(--line) 0 1px, transparent 1px var(--grid-size))
-      50% 50% / var(--grid-size) var(--grid-size);
-}
-
-.warp__side--top {
-  width: 100cqi;
-  height: 100cqmax;
-  transform-origin: 50% 0%;
-  transform: rotateX(-90deg);
-}
-
-.warp__side--bottom {
-  width: 100cqi;
-  height: 100cqmax;
-  top: 100%;
-  transform-origin: 50% 0%;
-  transform: rotateX(-90deg);
-}
-
-.warp__side--left {
-  width: 100cqh;
-  height: 100cqmax;
-  top: 0;
-  left: 0;
-  transform-origin: 0% 0%;
-  transform: rotate(90deg) rotateX(-90deg);
-}
-
-.warp__side--right {
-  width: 100cqh;
-  height: 100cqmax;
-  top: 0;
-  right: 0;
-  transform-origin: 100% 0%;
-  transform: rotate(-90deg) rotateX(-90deg);
-}
-
-.beam {
-  width: var(--grid-size);
-  position: absolute;
-  top: 0;
-  left: calc(var(--x, 0) * var(--grid-size));
-  aspect-ratio: 1 / var(--ar, 1);
-  background: linear-gradient(hsl(var(--hue) 80% 60%), transparent);
-  translate: 0 calc((var(--speed) / var(--delay)) * 1cqh);
-  animation-name: warp;
-  animation-duration: calc((var(--speed, 0) * var(--reduced, 0)) * 1s);
-  animation-delay: calc((var(--delay, 0) * var(--reduced, 1)) * -1s);
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-/* @media(prefers-reduced-motion: no-preference) {
-  .beam {
-    animation-duration: calc(var(--speed, 0) * 1s);
-    animation-delay: calc(var(--delay), 0) * -1s);
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 40% -60% 0 -60%;
+    background-image: radial-gradient(
+      ellipse at bottom,
+      #1d0559 0%,
+      #020112 50%
+    );
+    opacity: 0.4;
   }
-} */
 
-@keyframes warp {
-  0% {
-    translate: -50% 100cqmax;
-  }
-  100% {
-    translate: -50% -100%;
+  .twitter {
+    position: fixed;
+    display: block;
+    right: 12px;
+    bottom: 12px;
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
   }
 }
 </style>
