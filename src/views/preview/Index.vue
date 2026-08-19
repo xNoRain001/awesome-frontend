@@ -3,7 +3,9 @@
     class="bg-default fixed inset-0 z-10 flex flex-col gap-4 p-4 sm:gap-6 sm:p-6"
   >
     <div class="flex items-center justify-between">
+      <USkeleton v-if="loading" class="h-10 w-80" />
       <UTabs
+        v-else
         v-model="activeTab"
         :content="false"
         :items="items"
@@ -72,12 +74,13 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { EditorView } from '@codemirror/view'
 import type { TabsItem } from '@nuxt/ui'
 import { UseClipboard } from '@vueuse/components'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useListStore } from '@/store'
 
+const loading = ref(true)
 const extensions = [
   EditorView.theme({
     '&': {
@@ -114,13 +117,24 @@ const rawItems = [
   }
 ]
 const activeTab = ref<(typeof rawItems)[number]['value']>('preview')
-const response = await fetch(`/code/${detail.id}.json`)
-const code = await response.json()
-const items: TabsItem[] = code.js
-  ? rawItems
-  : rawItems.filter(item => item.value !== 'js')
+const code = ref<{ html: string; css: string; js?: string }>({
+  html: '',
+  css: '',
+  js: ''
+})
+const items = ref<TabsItem[]>([])
 
 const onClose = () => {
   router.replace('/')
 }
+
+onMounted(async () => {
+  const response = await fetch(`/code/${detail.id}.json`)
+  const data = await response.json()
+  code.value = data
+  items.value = data.js
+    ? rawItems
+    : rawItems.filter(item => item.value !== 'js')
+  loading.value = false
+})
 </script>

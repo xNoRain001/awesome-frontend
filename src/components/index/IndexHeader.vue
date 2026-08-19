@@ -32,34 +32,18 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 
 import { useListStore } from '@/store'
 
-const route = useRoute()
 const moiveStore = useListStore()
 const { keyword } = storeToRefs(moiveStore)
-const { listMap } = moiveStore
 
-const items = computed(() => {
-  const { id } = route.query
-  return id
-    ? [
-        {
-          label: '创意',
-          to: '/'
-        },
-        {
-          label: listMap[id as string].title
-        }
-      ]
-    : [
-        {
-          label: '创意'
-        }
-      ]
-})
+const items = [
+  {
+    label: '视觉创意',
+    to: '/'
+  }
+]
 
 const onClear = () => {
   keyword.value = ''
