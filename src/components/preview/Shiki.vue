@@ -3,7 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-import { codeToHtml } from 'shiki'
+import vue from '@shikijs/langs/vue'
+import vitesseDark from '@shikijs/themes/vitesse-dark'
+import { createHighlighterCore } from 'shiki/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
 import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
@@ -13,7 +16,12 @@ const html = ref('')
 
 onMounted(async () => {
   const { code } = props
-  html.value = await codeToHtml(code, {
+  const core = await createHighlighterCore({
+    engine: createJavaScriptRegexEngine(),
+    langs: [vue],
+    themes: [vitesseDark]
+  })
+  html.value = core.codeToHtml(code, {
     lang: 'vue',
     theme: 'vitesse-dark'
   })
