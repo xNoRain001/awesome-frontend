@@ -22,74 +22,43 @@
       >
         <RouterView />
       </div>
-      <codemirror
-        v-else-if="activeTab === 'html'"
-        v-model="code.html"
-        placeholder="Code goes here..."
-        :style="{ height: '100%' }"
-        disabled
-        :extensions="extensions"
-      />
-      <codemirror
-        v-else-if="activeTab === 'css'"
-        v-model="code.css"
-        placeholder="Code goes here..."
-        :style="{ height: '100%' }"
-        disabled
-        :extensions="extensions"
-      />
-      <codemirror
-        v-else
-        v-model="code.js"
-        placeholder="Code goes here..."
-        :style="{ height: '100%' }"
-        disabled
-        :extensions="extensions"
-      />
-      <UseClipboard
-        v-if="activeTab !== 'preview'"
-        v-slot="{ copy, copied }"
-        :key="activeTab"
-        :source="
-          activeTab === 'html'
-            ? code.html
-            : activeTab === 'css'
-              ? code.css
-              : code.js
-        "
-      >
-        <UButton
-          :icon="copied ? 'lucide:copy-check' : 'lucide:copy'"
-          class="absolute top-4 right-4 sm:top-6 sm:right-6"
-          @click="copy()"
-        />
-      </UseClipboard>
+      <!-- 如果当前 tab 不是 preview，那么 code 一定获取到了 -->
+      <template v-else>
+        <Shiki v-if="activeTab === 'html'" :code="code.html" />
+        <Shiki v-else-if="activeTab === 'css'" :code="code.css" />
+        <Shiki v-else :code="code.js || ''" />
+        <UseClipboard
+          v-slot="{ copy, copied }"
+          :key="activeTab"
+          :source="
+            activeTab === 'html'
+              ? code.html
+              : activeTab === 'css'
+                ? code.css
+                : code.js
+          "
+        >
+          <UButton
+            :icon="copied ? 'lucide:copy-check' : 'lucide:copy'"
+            class="absolute top-4 right-4 sm:top-6 sm:right-6"
+            @click="copy()"
+          />
+        </UseClipboard>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { vue } from '@codemirror/lang-vue'
-import { oneDark } from '@codemirror/theme-one-dark'
-import { EditorView } from '@codemirror/view'
 import type { TabsItem } from '@nuxt/ui'
 import { UseClipboard } from '@vueuse/components'
 import { onMounted, ref } from 'vue'
-import { Codemirror } from 'vue-codemirror'
 import { useRoute, useRouter } from 'vue-router'
 
+import Shiki from '@/components/preview/Shiki.vue'
 import { useListStore } from '@/store'
 
 const loading = ref(true)
-const extensions = [
-  EditorView.theme({
-    '&': {
-      fontSize: '16px'
-    }
-  }),
-  vue(),
-  oneDark
-]
 const route = useRoute()
 const router = useRouter()
 const { listMap } = useListStore()
@@ -103,17 +72,17 @@ const rawItems = [
   {
     label: 'HTML',
     value: 'html' as const,
-    icon: 'lucide:code'
+    icon: 'logos:html-5'
   },
   {
     label: 'CSS',
     value: 'css' as const,
-    icon: 'lucide:code'
+    icon: 'logos:css'
   },
   {
     label: 'JS',
     value: 'js' as const,
-    icon: 'lucide:code'
+    icon: 'logos:javascript'
   }
 ]
 const activeTab = ref<(typeof rawItems)[number]['value']>('preview')

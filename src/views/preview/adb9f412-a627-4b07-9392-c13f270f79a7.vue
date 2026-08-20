@@ -1,5 +1,4 @@
 <template>
-  <!-- From Uiverse.io by Vosoone -->
   <div class="loader">
     <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -157,8 +156,6 @@
 <script lang="ts" setup></script>
 
 <style scoped>
-/* From Uiverse.io by Vosoone */
-
 .loader {
   width: 100%;
   height: 100%;

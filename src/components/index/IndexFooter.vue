@@ -4,7 +4,7 @@
     v-model:page="page"
     :items-per-page="ITEMS_PER_PAGE"
     :total="filteredList.length"
-    :sibling-count="2"
+    :sibling-count="4"
     :ui="{
       root: 'p-4 sm:p-6',
       list: 'justify-center'
